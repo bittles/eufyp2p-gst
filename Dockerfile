@@ -8,7 +8,7 @@ FROM --platform=linux/arm64 ngrok/ngrok:3-debian as ngrokimage
 
 FROM scratch AS rootfs
 
-COPY ./go2rtc /usr/local/bin/
+COPY bin/go2rtc /usr/local/bin/
 COPY --from=ngrokimage /bin/ngrok /usr/local/bin/
 
 
@@ -34,7 +34,7 @@ COPY --from=rootfs / /
 
 WORKDIR /
 RUN mkdir app
-COPY eufyp2p/ /app/
+COPY app/ /app/
 
 WORKDIR /app
 
