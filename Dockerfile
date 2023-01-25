@@ -12,16 +12,7 @@ FROM --platform=linux/arm64 ngrok/ngrok:${NGROK_VERSION}-debian as ngrokimage
 
 FROM scratch AS rootfs
 
-RUN \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-        wget
 
-RUN wget https://github.com/AlexxIT/go2rtc/releases/download/${GO2RTC_VERSION}/go2rtc_linux_arm64
-RUN mv go2rtc_linux_arm64 /usr/local/bin/go2rtc
-
-#COPY bin/go2rtc /usr/local/bin/
-RUN chmod a+x /usr/local/bin/go2rtc
 
 COPY --from=ngrokimage /bin/ngrok /usr/local/bin/
 
@@ -40,7 +31,12 @@ RUN \
         curl \
         jq \
         python3-pip \
-        psmisc
+        psmisc \
+        wget
+
+RUN wget https://github.com/AlexxIT/go2rtc/releases/download/${GO2RTC_VERSION}/go2rtc_linux_arm64
+RUN mv go2rtc_linux_arm64 /usr/local/bin/go2rtc
+RUN chmod a+x /usr/local/bin/go2rtc
 
 RUN pip install aiohttp asyncio
 
