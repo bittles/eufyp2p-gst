@@ -1,12 +1,10 @@
-# https://github.com/AlexxIT/builder/blob/master/builder.sh
-name: eufyp2pstream
-description: Eufy P2P camera streaming application
+name: eufyp2p-gst
+description: Eufy P2P camera streaming application with gst-launch-1.0
 url: https://hassio.unibutton.com/local_eufyp2pstream
 arch: [aarch64]
-#image: bittles999/eufyp2p-gst
 # https://developers.home-assistant.io/docs/add-ons/configuration
-version: 0.1-alpha.3
-slug: eufyp2pstream
+version: 0.1
+slug: eufyp2p-gst
 init: false
 startup: application
 host_network: true
@@ -16,7 +14,14 @@ ingress: true
 ingress_port: 1997
 panel_icon: mdi:camera-wireless
 map:
-- share:rw
-- media:rw
-- config:rw
-ports: { "8541/tcp": 8541, "1997/tcp": 1997, "8787/tcp": 8787 }
+  - share:rw
+  - media:rw
+  - config:rw
+ports: 
+  8541/tcp: 8541
+  1997/tcp: 1997
+  8787/tcp: 8787
+ports_description:
+  8541/tcp: Port for serving RTSP at x.x.x.x:<port>/camera1
+  1997/tcp: Port for go2rtc web interface
+  8787/tcp: Port for serving snapshot url at x.x.x.x:<port>
