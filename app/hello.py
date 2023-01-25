@@ -296,16 +296,17 @@ async def main(run_event):
     )
     c.setWs(ws)
     await ws.connect()
-
+    
     await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
+    
+    await asyncio.run(SnapshotInterval(CAMERA, SSINTERVAL))
     await asyncio.sleep(1000000000000000000000005)
 
 run_event = threading.Event()
 run_event.set()
 try:
-    asyncio.run(SnapshotInterval(CAMERA, SSINTERVAL))
     asyncio.run(main(run_event))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()
