@@ -264,7 +264,7 @@ class Connector:
 
 
 async def SnapshotInterval(CAM_NAME, PORTNUM, INTERVAL):
-    while true:
+    while True:
         try:
             os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(PORTNUM) + '/' + CAM_NAME + '-frames:v 1  /config/www/eufyp2p/' + CAM_NAME + '.jpg')
         except Exception as e:
