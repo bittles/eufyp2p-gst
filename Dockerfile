@@ -35,7 +35,7 @@ RUN \
         wget
 
 # Go2rtc version
-ARG GO2RTC_VERSION="1.01"
+ARG GO2RTC_VERSION="v1.01"
 
 RUN wget https://github.com/AlexxIT/go2rtc/releases/download/${GO2RTC_VERSION}/go2rtc_linux_arm64
 RUN mv go2rtc_linux_arm64 /usr/local/bin/go2rtc
