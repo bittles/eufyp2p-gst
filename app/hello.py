@@ -267,7 +267,7 @@ async def SnapshotInterval(CAM_NAME, INTERVAL):
     await asyncio.sleep(120)
     while True:
         try:
-            os.system(ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 +  '/config/www/eufyp2p/' + CAM_NAME + '.jpg')
+            os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + CAM_NAME + '.jpg')
         except Exception as e:
             print("Exception: ", e)
 
