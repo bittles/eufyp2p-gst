@@ -1,15 +1,27 @@
 # syntax=docker/dockerfile:labs
 FROM restreamio/gstreamer:aarch64-latest-prod as base
 
+# Versions
+ARG NGROK_VERSION="3"
+ARG GO2RTC_VERSION="1.01"
+
 # Prepare images
-#ARG NGROK_VERSION="3"
-#FROM ngrok/ngrok:3-debian as ngrokimage
-FROM --platform=linux/arm64 ngrok/ngrok:3-debian as ngrokimage
+FROM --platform=linux/arm64 ngrok/ngrok:$NGROK_VERSION-debian as ngrokimage
+
+
 
 FROM scratch AS rootfs
 
-RUN chmod a+x bin/go2rtc
-COPY bin/go2rtc /usr/local/bin/
+RUN \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        wget
+
+RUN wget https://github.com/AlexxIT/go2rtc/releases/download/$GO2RTC_VERSION/go2rtc_linux_arm64
+RUN mv go2rtc_linux_arm64 /usr/local/bin/go2rtc
+
+#COPY bin/go2rtc /usr/local/bin/
+RUN chmod a+x /usr/local/bin/go2rtc
 
 COPY --from=ngrokimage /bin/ngrok /usr/local/bin/
 
