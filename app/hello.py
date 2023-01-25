@@ -99,8 +99,6 @@ class ClientAcceptThread(threading.Thread):
 
     def run(self):
         print("Accepting connection for ", self.name)
-        msg["serialNumber"] = self.serialno
-        asyncio.run(self.ws.send_message(json.dumps(msg))
         while self.run_event.is_set():
             self.update_threads()
             sys.stdout.flush()
@@ -165,8 +163,6 @@ class ClientRecvThread(threading.Thread):
         self.serialno = serialno
 
     def run(self):
-        msg["serialNumber"] = self.serialno
-        asyncio.run(self.ws.send_message(json.dumps(msg)))
         try:
             curr_packet = bytearray() 
             while self.run_event.is_set():
