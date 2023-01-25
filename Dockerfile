@@ -6,7 +6,7 @@ ARG NGROK_VERSION="3"
 ARG GO2RTC_VERSION="1.01"
 
 # Prepare images
-FROM --platform=linux/arm64 ngrok/ngrok:$NGROK_VERSION-debian as ngrokimage
+FROM --platform=linux/arm64 ngrok/ngrok:${NGROK_VERSION}-debian as ngrokimage
 
 
 
@@ -17,7 +17,7 @@ RUN \
     apt-get install -y --no-install-recommends \
         wget
 
-RUN wget https://github.com/AlexxIT/go2rtc/releases/download/$GO2RTC_VERSION/go2rtc_linux_arm64
+RUN wget https://github.com/AlexxIT/go2rtc/releases/download/${GO2RTC_VERSION}/go2rtc_linux_arm64
 RUN mv go2rtc_linux_arm64 /usr/local/bin/go2rtc
 
 #COPY bin/go2rtc /usr/local/bin/
