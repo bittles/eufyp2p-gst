@@ -263,11 +263,11 @@ class Connector:
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
 
-async def SnapshotInterval(CAM_NAME, PORTNUM, INTERVAL):
+async def SnapshotInterval(CAM_NAME, INTERVAL):
     await asyncio.sleep(120)
     while True:
         try:
-            os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(PORTNUM) + '/' + CAM_NAME + ' -frames:v 1  /config/www/eufyp2p/' + CAM_NAME + '.jpg')
+            os.system(ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 +  '/config/www/eufyp2p/' + CAM_NAME + '.jpg')
         except Exception as e:
             print("Exception: ", e)
 
@@ -296,7 +296,7 @@ async def main(run_event):
 run_event = threading.Event()
 run_event.set()
 try:
-    asyncio.run(SnapshotInterval(CAMERA, RTSP_PORT_NUMBER, SSINTERVAL))
+    asyncio.run(SnapshotInterval(CAMERA, SSINTERVAL))
     asyncio.run(main(run_event))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()
