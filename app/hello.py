@@ -263,7 +263,7 @@ class Connector:
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
 
-def SnapshotInterval(CAM_NAME, PORTNUM, INTERVAL):
+async def SnapshotInterval(CAM_NAME, PORTNUM, INTERVAL):
     while true:
         try:
             os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(PORTNUM) + '/' + CAM_NAME + '-frames:v 1  /config/www/eufyp2p/' + CAM_NAME + '.jpg')
