@@ -52,6 +52,12 @@ STOP_P2P_LIVESTREAM_MESSAGE = {
     "serialNumber": None,
 }
 
+STOP_TALKBACK = {
+    "messageId": "stop_talkback",
+    "command": "device.stop_talkback",
+    "serialNumber": None,
+}
+
 SET_API_SCHEMA = {
     "messageId": "set_api_schema",
     "command": "set_api_schema",
@@ -99,6 +105,9 @@ class ClientAcceptThread(threading.Thread):
 
     def run(self):
         print("Accepting connection for ", self.name)
+        msg = STOP_TALKBACK.copy()
+        msg["serialNumber"] = self.serialno
+        asyncio.run(self.ws.send_message(json.dumps(msg)))
         while self.run_event.is_set():
             self.update_threads()
             sys.stdout.flush()
@@ -164,11 +173,10 @@ class ClientRecvThread(threading.Thread):
 
     def run(self):
         try:
-            curr_packet = bytearray() 
             while self.run_event.is_set():
                 try:
                     data = self.client_sock.recv(RECV_CHUNK_SIZE)
-                    curr_packet += bytearray(data)
+                    print("got ", len(data))
                 except BlockingIOError:
                     # Resource temporarily unavailable (errno EWOULDBLOCK)
                     pass
@@ -179,6 +187,7 @@ class ClientRecvThread(threading.Thread):
             print("Timeout on socket for ", self.name)
             pass
         self.client_sock.close()
+        msg = STOP_TALKBACK.copy()
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
 
