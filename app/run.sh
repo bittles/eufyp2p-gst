@@ -7,6 +7,10 @@ if [ ! -d /data/config ]; then
     cp config/go2rtc.yaml /data/config/
 fi
 
+if [ ! -d /config/www/eufyp2p ]; then
+    mkdir -p /config/www/eufyp2p
+fi
+
 while true; do
     killall python3
     killall go2rtc
