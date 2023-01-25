@@ -1,14 +1,14 @@
 # syntax=docker/dockerfile:labs
-FROM restreamio/gstreamer:aarch64-latest-prod as base
 
 # Versions
 ARG NGROK_VERSION="3"
 ARG GO2RTC_VERSION="1.01"
 
+# use gstreamer base
+FROM restreamio/gstreamer:aarch64-latest-prod as base
+
 # Prepare images
 FROM --platform=linux/arm64 ngrok/ngrok:${NGROK_VERSION}-debian as ngrokimage
-
-
 
 FROM scratch AS rootfs
 
