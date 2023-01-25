@@ -7,12 +7,11 @@ import socket
 import threading
 import time
 import sys
-from http.server import BaseHTTPRequestHandler, HTTPServer
+
 import os
 from queue import Queue
 
 HOST_NAME = '0.0.0.0'
-PORT_NUMBER = 8787
 
 RTSP_PORT_NUMBER = 8541
 
@@ -21,6 +20,11 @@ RECV_CHUNK_SIZE = 4096
 video_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 audio_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Default camera name in go2rtc
+CAMERA = 'camera1'
+# Take snapshot every interval seconds
+SSINTERVAL = 1800
 
 
 EVENT_CONFIGURATION: dict = {
@@ -65,7 +69,6 @@ P2P_LIVESTREAMING_STATUS = "p2pLiveStreamingStatus"
 START_LISTENING_MESSAGE = {"messageId": "start_listening", "command": "start_listening"}
 
 DRIVER_CONNECT_MESSAGE = {"messageId": "driver_connect", "command": "driver.connect"}
-
 
 class ClientAcceptThread(threading.Thread):
     def __init__(self,socket,run_event,name,ws,serialno):
@@ -264,23 +267,14 @@ class Connector:
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
 
-class MyHandler(BaseHTTPRequestHandler):
-    def do_HEAD(self):
-        self.send_response(200)
-        self.send_header("Content-type", "image/jpeg")
-        self.end_headers()
-
-    def do_GET(self):
-        """Respond to a GET request."""
-        self.send_response(200)
-        self.send_header("Content-type", "image/jpeg")
-        self.end_headers()
+def SnapshotInterval(CAM_NAME, PORTNUM, INTERVAL):
+    while true:
         try:
-            os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(RTSP_PORT_NUMBER) + '/camera1 -frames:v 1  /data/frame.jpg')
-            with open("/data/frame.jpg", "rb") as file:
-                    self.wfile.write(file.read())
+            os.system('ffmpeg -y -i rtsp://127.0.0.1:' + str(PORTNUM) + '/' + CAM_NAME) + '-frames:v 1  /config/www/eufyp2p/' + CAM_NAME + '.jpg')
         except Exception as e:
             print("Exception: ", e)
+
+        await asyncio.sleep(INTERVAL)
 
 async def main(run_event):
     c = Connector(run_event)
@@ -302,17 +296,11 @@ async def main(run_event):
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
     await asyncio.sleep(1000000000000000000000005)
 
-
-def http_serve():
-    server_class = HTTPServer
-    httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
-    httpd.serve_forever()
-
 run_event = threading.Event()
 run_event.set()
 try:
-    x = threading.Thread(target=http_serve)
-    x.start()
+    x = threading.Thread(target=SnapshotInterval)
+    x.start(CAMERA, RTSP_PORT_NUMBER, SSINTERVAL)
     asyncio.run(main(run_event))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()

@@ -20,8 +20,6 @@ map:
 ports: 
   8541/tcp: 8541
   1997/tcp: 1997
-  8787/tcp: 8787
 ports_description:
   8541/tcp: Port for serving RTSP at x.x.x.x:<port>/camera1
   1997/tcp: Port for go2rtc web interface
-  8787/tcp: Port for serving snapshot url at x.x.x.x:<port>
