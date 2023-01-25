@@ -295,8 +295,7 @@ async def main(run_event):
 run_event = threading.Event()
 run_event.set()
 try:
-    x = threading.Thread(target=SnapshotInterval)
-    x.start(CAMERA, RTSP_PORT_NUMBER, SSINTERVAL)
+    asyncio.run(SnapshotInterval(CAMERA, RTSP_PORT_NUMBER, SSINTERVAL))
     asyncio.run(main(run_event))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()
