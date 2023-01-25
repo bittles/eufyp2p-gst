@@ -8,7 +8,9 @@ FROM --platform=linux/arm64 ngrok/ngrok:3-debian as ngrokimage
 
 FROM scratch AS rootfs
 
+RUN chmod a+x bin/go2rtc
 COPY bin/go2rtc /usr/local/bin/
+
 COPY --from=ngrokimage /bin/ngrok /usr/local/bin/
 
 
