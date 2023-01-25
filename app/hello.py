@@ -48,25 +48,6 @@ STOP_P2P_LIVESTREAM_MESSAGE = {
     "serialNumber": None,
 }
 
-START_TALKBACK = {
-    "messageId": "start_talkback",
-    "command": "device.start_talkback",
-    "serialNumber": None,
-}
-
-SEND_TALKBACK_AUDIO_DATA = {
-    "messageId": "talkback_audio_data",
-    "command": "device.talkback_audio_data",
-    "serialNumber": None,
-    "buffer": None
-}
-
-STOP_TALKBACK = {
-    "messageId": "stop_talkback",
-    "command": "device.stop_talkback",
-    "serialNumber": None,
-}
-
 SET_API_SCHEMA = {
     "messageId": "set_api_schema",
     "command": "set_api_schema",
@@ -82,8 +63,6 @@ STOP_P2P_LIVESTREAM_MESSAGE = {
 P2P_LIVESTREAMING_STATUS = "p2pLiveStreamingStatus"
 
 START_LISTENING_MESSAGE = {"messageId": "start_listening", "command": "start_listening"}
-
-TALKBACK_RESULT_MESSAGE = {"messageId": "talkback_audio_data", "errorCode": "device_talkback_not_running"}
 
 DRIVER_CONNECT_MESSAGE = {"messageId": "driver_connect", "command": "driver.connect"}
 
@@ -117,9 +96,8 @@ class ClientAcceptThread(threading.Thread):
 
     def run(self):
         print("Accepting connection for ", self.name)
-        msg = STOP_TALKBACK.copy()
         msg["serialNumber"] = self.serialno
-        asyncio.run(self.ws.send_message(json.dumps(msg)))
+        asyncio.run(self.ws.send_message(json.dumps(msg))
         while self.run_event.is_set():
             self.update_threads()
             sys.stdout.flush()
@@ -184,7 +162,6 @@ class ClientRecvThread(threading.Thread):
         self.serialno = serialno
 
     def run(self):
-        msg = START_TALKBACK.copy()
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
         try:
@@ -193,14 +170,6 @@ class ClientRecvThread(threading.Thread):
                 try:
                     data = self.client_sock.recv(RECV_CHUNK_SIZE)
                     curr_packet += bytearray(data)
-                    if len(data) >0 and len(data) < RECV_CHUNK_SIZE:
-                        print("Sending len ", len(data) , " . ", len(curr_packet))
-                        msg = SEND_TALKBACK_AUDIO_DATA.copy()
-                        msg["serialNumber"] = self.serialno
-                        print("Sending len ", len(bytes(curr_packet)))
-                        msg["buffer"] = list(bytes(curr_packet)) 
-                        asyncio.run(self.ws.send_message(json.dumps(msg)))
-                        curr_packet = bytearray() 
                 except BlockingIOError:
                     # Resource temporarily unavailable (errno EWOULDBLOCK)
                     pass
@@ -211,7 +180,6 @@ class ClientRecvThread(threading.Thread):
             print("Timeout on socket for ", self.name)
             pass
         self.client_sock.close()
-        msg = STOP_TALKBACK.copy()
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
 
@@ -266,12 +234,6 @@ class Connector:
                 self.audio_thread.start()
                 self.video_thread.start()
                 self.backchannel_thread.start()
-            if message_id == TALKBACK_RESULT_MESSAGE["messageId"] and "errorCode" in payload:
-                error_code = payload["errorCode"]
-                if error_code == "device_talkback_not_running":
-                    msg = START_TALKBACK.copy()
-                    msg["serialNumber"] = self.serialno
-                    asyncio.run(self.ws.send_message(json.dumps(msg)))
 
         if message_type == "event":
             message = payload[message_type]
