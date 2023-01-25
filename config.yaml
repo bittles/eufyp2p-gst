@@ -1,19 +1,22 @@
 # https://github.com/AlexxIT/builder/blob/master/builder.sh
 name: eufyp2pstream
 description: Eufy P2P camera streaming application
-url: http://192.168.178.252:8123/local_eufyp2pstream
-arch: [amd64, aarch64, i386, armv7]
-
+url: https://hassio.unibutton.com/local_eufyp2pstream
+arch: [aarch64]
+#image: bittles999/eufyp2p-gst
 # https://developers.home-assistant.io/docs/add-ons/configuration
 version: 0.1-alpha.3
 slug: eufyp2pstream
 init: false
-startup: system
+startup: application
 host_network: true
 video: true
 audio: true
 ingress: true
 ingress_port: 1997
 panel_icon: mdi:camera-wireless
-map: [config, media]
+map:
+- share:rw
+- media:rw
+- config:rw
 ports: { "8541/tcp": 8541, "1997/tcp": 1997, "8787/tcp": 8787 }
