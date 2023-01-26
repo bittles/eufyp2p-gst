@@ -234,7 +234,7 @@ class SnapshotInterval(threading.Thread):
         self.cam_name = cam_name
         self.snapshot_interval = snapshot_interval
 
-    def run(self):
+    async def run(self):
         try:
             while self.run_event.is_set():
                 await asyncio.sleep(60)
