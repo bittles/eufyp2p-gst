@@ -271,7 +271,7 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-def buildFFmpegCommand(cam_name):
+def buildFfmpegCommand(cam_name):
     ffmpegcommand = [
         ffmpegbin,
         "-analyzeduration", "1200000",
@@ -289,7 +289,7 @@ def buildFFmpegCommand(cam_name):
     return ffmpegcommand
 
 async def snapshotCmd(cam_name, snapshot_interval):
-    ffmpegcmd = buildFFmpegCommand(cam_name)
+    ffmpegcmd = buildFfmpegCommand(cam_name)
     print(ffmpegcmd)
     await asyncio.sleep(60)
     while True:
@@ -322,8 +322,9 @@ async def main(run_event):
     await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-
-    asyncio.create_task(snapshotCmd(CAMERA, SSINTERVAL))
+    cmd = ffmpegBuildCommand(CAMERA)
+    print(cmd)
+    #asyncio.create_task(snapshotCmd(CAMERA, SSINTERVAL))
     await asyncio.sleep(1000000000000000000000005)
 
 try:
