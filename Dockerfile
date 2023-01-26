@@ -48,7 +48,7 @@ COPY --from=rootfs / /
 WORKDIR /
 RUN mkdir app
 COPY app/ /app/
-
+COPY config.json /app/
 WORKDIR /app
 
 CMD ["bash", "run.sh"]
