@@ -1,0 +1,37 @@
+{
+    "name": "eufyp2p-gst",
+    "description": "Eufy P2P camera streaming application with gst-launch-1.0",
+    "url": "https://hassio.unibutton.com/local_eufyp2pstream",
+    "arch": [
+        "aarch64"
+    ],
+    "version": "0.1",
+    "slug": "eufyp2p-gst",
+    "init": false,
+    "startup": "application",
+    "host_network": true,
+    "video": true,
+    "audio": true,
+    "ingress": true,
+    "ingress_port": "1997",
+    "panel_icon": "mdi:camera-wireless",
+    "map": [
+      "share:rw",
+      "media:rw",
+      "config:rw"
+    ],
+	"options": {
+		"SNAPSHOT_INTERVAL": 1800
+	},
+	"schema": {
+		"SNAPSHOT_INTERVAL": "int?"
+	},
+    "ports": {
+      "8541/tcp": 8541,
+      "1997/tcp": 1997
+    },
+    "ports_description": {
+      "8541/tcp": "Port for serving RTSP at x.x.x.x:<port>/camera1",
+      "1997/tcp": "Port for go2rtc web interface"
+    }
+}
