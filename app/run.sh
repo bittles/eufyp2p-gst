@@ -14,7 +14,7 @@ fi
 while true; do
     killall python3
     killall go2rtc
-    python3 hello.py &
+    exec python3 -m eufyp2p &
     go2rtc -config /data/config/go2rtc.yaml
     sleep 5
 done

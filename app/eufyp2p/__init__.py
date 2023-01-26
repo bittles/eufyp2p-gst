@@ -1,5 +1,5 @@
-
-from websocket import EufySecurityWebSocket
+#!/usr/bin/env python3
+from .websocket import EufySecurityWebSocket
 import aiohttp
 import asyncio
 import json
@@ -24,7 +24,7 @@ backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Default camera name in go2rtc
 CAMERA = 'camera1'
 # Take snapshot every interval seconds
-SSINTERVAL = 1800
+SSINTERVAL = os.getenv("snapshot_interval"))
 
 
 EVENT_CONFIGURATION: dict = {
@@ -105,7 +105,7 @@ class ClientAcceptThread(threading.Thread):
 
     def run(self):
         print("Accepting connection for ", self.name)
-        msg = STOP_TALKBACK.copy()
+        #msg = STOP_TALKBACK.copy()
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
         while self.run_event.is_set():
@@ -191,6 +191,26 @@ class ClientRecvThread(threading.Thread):
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
 
+class SnapshotInterval(threading.Thread):
+    def __init__(self, run_event, cam_name, snapshot_interval):
+        threading.Thread.__init__(self)
+        self.run_event = run_event
+        self.cam_name = cam_name
+        self.snapshot_interval = snapshot_interval
+
+    def run(self):
+        try:
+            while self.run_event.is_set():
+                await asyncio.sleep(60)
+                try:
+                
+                    os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + self.cam_name + '.jpg')
+                except Exception as e:
+                    print("Exception: ", e)
+
+                await asyncio.sleep(self.snapshot_interval)
+        except 
+
 class Connector:
     def __init__(
         self,
@@ -271,17 +291,6 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-
-async def SnapshotInterval(CAM_NAME, INTERVAL):
-    await asyncio.sleep(120)
-    while True:
-        try:
-            os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + CAM_NAME + '.jpg')
-        except Exception as e:
-            print("Exception: ", e)
-
-        await asyncio.sleep(INTERVAL)
-
 async def main(run_event):
     c = Connector(run_event)
 
@@ -296,12 +305,13 @@ async def main(run_event):
     )
     c.setWs(ws)
     await ws.connect()
-    
+
     await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-    
-    SnapshotInterval(CAMERA, SSINTERVAL)
+
+    thread = SnapshotInterval(CAMERA, SSINTERVAL)
+    thread.start()
     await asyncio.sleep(1000000000000000000000005)
 
 run_event = threading.Event()
