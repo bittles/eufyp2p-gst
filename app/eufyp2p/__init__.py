@@ -7,7 +7,7 @@ import socket
 import threading
 import time
 import sys
-
+import subprocess
 import os
 from queue import Queue
 
@@ -26,6 +26,7 @@ CAMERA = 'camera1'
 # Take snapshot every interval seconds
 SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
 
+ffmpeg = "/usr/bin/ffmpeg"
 
 EVENT_CONFIGURATION: dict = {
     "livestream video data": {
@@ -270,12 +271,41 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-async def SnapshotInterval(cam_name, snapshot_interval):
+async def ffmpegSnapshot(cam_name, snapshot_interval, commands):
     await asyncio.sleep(60)
     while True:
-        print("Snapshot refresh")
-        os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + cam_name + '.jpg')
-        await asyncio.sleep(snapshot_interval)
+        try:
+            print("Snapshot refresh")
+            subprocess.run(commands)
+            print("Snapshot created")
+            await asyncio.sleep(snapshot_interval)
+        except Exception as e:
+            print("Error during snapshot, retrying")
+
+def buildFFmpegCommand():
+    commands_list = [
+        ffmpeg,
+        "-analyzeduration",
+        "1200000",
+        "-f",
+        "h264",
+        "-i",
+        "tcp://127.0.0.1:63336?timeout=100000000",
+        "-strict",
+        "-2",
+        "-hls_init_time",
+        "0",
+        "-hls_time",
+        "2",
+        "-hls_segment_type",
+        "mpegts",
+        "-fflags",
+        "genpts+nobuffer+flush_packets",
+        "-frames:v",
+        "1",
+        "/config/www/eufyp2p/snapshot.jpg"
+        ]
+    return commands_list
 
 async def main(run_event):
     with open("config.json") as f:
@@ -299,7 +329,7 @@ async def main(run_event):
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
 
-    asyncio.create_task(SnapshotInterval(CAMERA, SSINTERVAL))
+    asyncio.create_task(ffmpegSnapshot(CAMERA, SSINTERVAL, buildFFmpegCommand()))
     await asyncio.sleep(1000000000000000000000005)
 
 try:
