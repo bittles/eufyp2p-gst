@@ -238,14 +238,10 @@ class SnapshotInterval(threading.Thread):
         try:
             while self.run_event.is_set():
                 await asyncio.sleep(60)
-                try:
-                
-                    os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + self.cam_name + '.jpg')
-                except Exception as e:
-                    print("Exception: ", e)
-
+                os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + self.cam_name + '.jpg')
                 await asyncio.sleep(self.snapshot_interval)
-        except 
+        except Exception as e:
+            print("Exception: ", e) 
 
 class Connector:
     def __init__(
