@@ -79,32 +79,6 @@ DRIVER_CONNECT_MESSAGE = {"messageId": "driver_connect", "command": "driver.conn
 run_event = threading.Event()
 run_event.set()
 
-async def main(run_event):
-    with open("config.json") as f:
-        config = json.load(f)
-
-    c = Connector(run_event)
-
-    ws: EufySecurityWebSocket = EufySecurityWebSocket(
-        "127.0.0.1",
-        3000,
-        aiohttp.ClientSession(),
-        c.on_open,
-        c.on_message,
-        c.on_close,
-        c.on_error,
-    )
-    c.setWs(ws)
-    await ws.connect()
-
-    await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
-    await ws.send_message(json.dumps(SET_API_SCHEMA))
-    await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-
-    thread = SnapshotInterval(run_event, CAMERA, SSINTERVAL)
-    thread.start()
-    await asyncio.sleep(1000000000000000000000005)
-
 class ClientAcceptThread(threading.Thread):
     def __init__(self,socket,run_event,name,ws,serialno):
         threading.Thread.__init__(self)
@@ -220,22 +194,6 @@ class ClientRecvThread(threading.Thread):
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-class SnapshotInterval(threading.Thread):
-    def __init__(self, run_event, cam_name, snapshot_interval):
-        threading.Thread.__init__(self)
-        self.run_event = run_event
-        self.cam_name = cam_name
-        self.snapshot_interval = snapshot_interval
-
-    async def run(self):
-        try:
-            while self.run_event.is_set():
-                await asyncio.sleep(60)
-                os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + self.cam_name + '.jpg')
-                await asyncio.sleep(self.snapshot_interval)
-        except Exception as e:
-            print("Exception: ", e) 
-
 class Connector:
     def __init__(
         self,
@@ -316,6 +274,40 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
+async def SnapshotInterval(cam_name, snapshot_interval):
+    while True:
+        try:
+            asyncio.sleep(60)
+            print("Snapshot refresh")
+            os.system('ffmpeg -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts -fflags genpts+nobuffer+flush_packets -frames:v 1 /config/www/eufyp2p/' + cam_name + '.jpg')
+            await asyncio.sleep(snapshot_interval)
+        except Exception as e:
+            print("Exception: ", e) 
+
+async def main(run_event):
+    with open("config.json") as f:
+        config = json.load(f)
+
+    c = Connector(run_event)
+
+    ws: EufySecurityWebSocket = EufySecurityWebSocket(
+        "127.0.0.1",
+        3000,
+        aiohttp.ClientSession(),
+        c.on_open,
+        c.on_message,
+        c.on_close,
+        c.on_error,
+    )
+    c.setWs(ws)
+    await ws.connect()
+
+    await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
+    await ws.send_message(json.dumps(SET_API_SCHEMA))
+    await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
+
+    asyncio.create_task(SnapshotInterval(CAMERA, SSINTERVAL))
+    await asyncio.sleep(1000000000000000000000005)
 
 try:
     asyncio.run(main(run_event))
