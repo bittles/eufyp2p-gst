@@ -107,10 +107,6 @@ class ClientAcceptThread(threading.Thread):
                 asyncio.run(self.ws.send_message(json.dumps(msg)))
 
     def run(self):
-        print("Accepting connection for ", self.name)
-        #msg = STOP_TALKBACK.copy()
-        msg["serialNumber"] = self.serialno
-        asyncio.run(self.ws.send_message(json.dumps(msg)))
         while self.run_event.is_set():
             self.update_threads()
             sys.stdout.flush()
