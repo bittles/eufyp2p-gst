@@ -301,7 +301,7 @@ async def main(run_event):
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
     
-    await asyncio.run(SnapshotInterval(CAMERA, SSINTERVAL))
+    SnapshotInterval(CAMERA, SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
 
 run_event = threading.Event()
