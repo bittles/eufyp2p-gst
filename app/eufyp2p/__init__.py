@@ -24,7 +24,7 @@ backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Default camera name in go2rtc
 CAMERA = 'camera1'
 # Take snapshot every interval seconds
-SSINTERVAL = os.getenv("snapshot_interval"))
+SSINTERVAL = os.getenv("snapshot_interval")
 
 
 EVENT_CONFIGURATION: dict = {
