@@ -26,7 +26,7 @@ CAMERA = 'camera1'
 # Take snapshot every interval seconds
 SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
 
-ffmpeg = "/usr/bin/ffmpeg"
+ffmpegbin = "/usr/bin/ffmpeg"
 
 EVENT_CONFIGURATION: dict = {
     "livestream video data": {
@@ -273,25 +273,17 @@ class Connector:
 
 def buildFFmpegCommand(cam_name):
     ffmpegcommand = [
-        ffmpeg,
-        "-analyzeduration",
-        "1200000",
-        "-f",
-        "h264",
-        "-i",
-        "tcp://127.0.0.1:63336?timeout=100000000",
+        ffmpegbin,
+        "-analyzeduration", "1200000",
+        "-f", "h264", 
+        "-i", "tcp://127.0.0.1:63336?timeout=100000000",
         "-strict",
         "-2",
-        "-hls_init_time",
-        "0",
-        "-hls_time",
-        "2",
-        "-hls_segment_type",
-        "mpegts",
-        "-fflags",
-        "genpts+nobuffer+flush_packets",
-        "-frames:v",
-        "1",
+        "-hls_init_time", "0",
+        "-hls_time", "2",
+        "-hls_segment_type", "mpegts",
+        "-fflags", "genpts+nobuffer+flush_packets",
+        "-frames:v", "1",
         "/config/www/eufyp2p/" + cam_name + ".jpg"
         ]
     return ffmpegcommand
@@ -302,12 +294,12 @@ async def snapshotCmd(cam_name, snapshot_interval):
     await asyncio.sleep(60)
     while True:
         print("Snapshot starting")
-        if subprocess.run(ffmpegcmd).returncode == 0:
-            print("Snapshot created")
-            await asyncio.sleep(snapshot_interval)
-        else:
-            print("Error during snapshot, retrying in 10 seconds")
-            await asyncio.sleep(10)
+        subprocess.Popen(ffmpegcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("Snapshot created")
+        await asyncio.sleep(snapshot_interval)
+        #else:
+            #print("Error during snapshot, retrying in 10 seconds")
+            #await asyncio.sleep(10)
 
 async def main(run_event):
     with open("config.json") as f:
