@@ -76,15 +76,8 @@ START_LISTENING_MESSAGE = {"messageId": "start_listening", "command": "start_lis
 
 DRIVER_CONNECT_MESSAGE = {"messageId": "driver_connect", "command": "driver.connect"}
 
-
 run_event = threading.Event()
 run_event.set()
-
-try:
-    asyncio.run(main(run_event))
-except (KeyboardInterrupt, SystemExit):
-    #httpd.server_close()
-    run_event.clear()
 
 async def main(run_event):
     with open("config.json") as f:
@@ -324,3 +317,8 @@ class Connector:
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
 
+try:
+    asyncio.run(main(run_event))
+except (KeyboardInterrupt, SystemExit):
+    #httpd.server_close()
+    run_event.clear()
