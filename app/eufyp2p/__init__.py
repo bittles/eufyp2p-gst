@@ -271,19 +271,8 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-async def ffmpegSnapshot(cam_name, snapshot_interval, commands):
-    await asyncio.sleep(60)
-    while True:
-        try:
-            print("Snapshot refresh")
-            subprocess.run(commands)
-            print("Snapshot created")
-            await asyncio.sleep(snapshot_interval)
-        except Exception as e:
-            print("Error during snapshot, retrying")
-
-def buildFFmpegCommand():
-    commands_list = [
+def buildFFmpegCommand(cam_name):
+    ffmpegcommand = [
         ffmpeg,
         "-analyzeduration",
         "1200000",
@@ -303,9 +292,22 @@ def buildFFmpegCommand():
         "genpts+nobuffer+flush_packets",
         "-frames:v",
         "1",
-        "/config/www/eufyp2p/snapshot.jpg"
+        "/config/www/eufyp2p/" + cam_name + ".jpg"
         ]
-    return commands_list
+    return ffmpegcommand
+
+async def snapshotCmd(cam_name, snapshot_interval):
+    ffmpegcmd = buildFFmpegCommand(cam_name)
+    print(ffmpegcmd)
+    await asyncio.sleep(60)
+    while True:
+        print("Snapshot starting")
+        if subprocess.run(ffmpegcmd).returncode == 0:
+            print("Snapshot created")
+            await asyncio.sleep(snapshot_interval)
+        else:
+            print("Error during snapshot, retrying in 10 seconds")
+            await asyncio.sleep(10)
 
 async def main(run_event):
     with open("config.json") as f:
@@ -329,7 +331,7 @@ async def main(run_event):
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
 
-    asyncio.create_task(ffmpegSnapshot(CAMERA, SSINTERVAL, buildFFmpegCommand()))
+    asyncio.create_task(snapshotCmd(CAMERA, SSINTERVAL))
     await asyncio.sleep(1000000000000000000000005)
 
 try:
