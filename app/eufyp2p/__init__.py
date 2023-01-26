@@ -76,6 +76,42 @@ START_LISTENING_MESSAGE = {"messageId": "start_listening", "command": "start_lis
 
 DRIVER_CONNECT_MESSAGE = {"messageId": "driver_connect", "command": "driver.connect"}
 
+
+run_event = threading.Event()
+run_event.set()
+
+try:
+    asyncio.run(main(run_event))
+except (KeyboardInterrupt, SystemExit):
+    #httpd.server_close()
+    run_event.clear()
+
+async def main(run_event):
+    with open("config.json") as f:
+        config = json.load(f)
+
+    c = Connector(run_event)
+
+    ws: EufySecurityWebSocket = EufySecurityWebSocket(
+        "127.0.0.1",
+        3000,
+        aiohttp.ClientSession(),
+        c.on_open,
+        c.on_message,
+        c.on_close,
+        c.on_error,
+    )
+    c.setWs(ws)
+    await ws.connect()
+
+    await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
+    await ws.send_message(json.dumps(SET_API_SCHEMA))
+    await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
+
+    thread = SnapshotInterval(CAMERA, SSINTERVAL)
+    thread.start()
+    await asyncio.sleep(1000000000000000000000005)
+
 class ClientAcceptThread(threading.Thread):
     def __init__(self,socket,run_event,name,ws,serialno):
         threading.Thread.__init__(self)
@@ -291,33 +327,4 @@ class Connector:
                     msg["serialNumber"] = self.serialno
                     asyncio.run(self.ws.send_message(json.dumps(msg)))
 
-async def main(run_event):
-    c = Connector(run_event)
 
-    ws: EufySecurityWebSocket = EufySecurityWebSocket(
-        "127.0.0.1",
-        3000,
-        aiohttp.ClientSession(),
-        c.on_open,
-        c.on_message,
-        c.on_close,
-        c.on_error,
-    )
-    c.setWs(ws)
-    await ws.connect()
-
-    await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
-    await ws.send_message(json.dumps(SET_API_SCHEMA))
-    await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-
-    thread = SnapshotInterval(CAMERA, SSINTERVAL)
-    thread.start()
-    await asyncio.sleep(1000000000000000000000005)
-
-run_event = threading.Event()
-run_event.set()
-try:
-    asyncio.run(main(run_event))
-except (KeyboardInterrupt, SystemExit):
-    #httpd.server_close()
-    run_event.clear()
