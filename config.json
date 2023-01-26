@@ -20,12 +20,12 @@
       "media:rw",
       "config:rw"
     ],
-	"options": {
-		"SNAPSHOT_INTERVAL": 1800
-	},
-	"schema": {
-		"SNAPSHOT_INTERVAL": "int?"
-	},
+    "options": {
+        "SNAPSHOT_INTERVAL": 1800
+    },
+    "schema": {
+        "SNAPSHOT_INTERVAL": "int?"
+    },
     "ports": {
       "8541/tcp": 8541,
       "1997/tcp": 1997

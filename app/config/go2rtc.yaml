@@ -6,3 +6,4 @@ api:
   listen: ":1997"
 
 rtsp:
+  listen: ":8541"
