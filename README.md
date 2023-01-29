@@ -1,5 +1,26 @@
-# Branch main in current development
-currently messing around with building this image with gstreamer to use gst-launch instead of ffmpeg to start streams
+Based on [oischinger's eufyp2pstream addon](https://github.com/oischinger/eufyp2pstream).
+# Goal and Progress:
+
+## Goal
+More stable experience in Homekit than Homebridge Eufy Security plugin.  Video skips frames, audio becomes unsynced.
+
+More flexbility in RTSP url generation and manipulation for Eufy Doorbell using P2P stream.
+
+Gstreamer pipeline.
+
+If koush exposes two-way audio in Homekit in RTSP or FFmpeg cams I'll probably put talkback in.
+
+## Progress
+As of version 0.2 gst-launch-1.0 pipelines can be built and used in the go2rtc config.  Camera name must be left as default 'camera1' for now.  TCP port 63336 is used for video, 63337 for audio, 63338 is just for talkback (I think).  Config file is stored in /config/eufyp2p/go2rtc.yaml.  Default config works for my Eufy 2k Battery Doorbell, encoding has to be set to Low (Medium looks like it may work).
+
+Options for custom snapshot interval don't currently work.  FFmpeg subprocess creates snapshot every 5 minutes in /config/www/eufyp2p/camera1.jpg which can be pulled from Home Assistant with http://<hass.ip>:<hass.port>/local/eufyp2p/camera1.jpg snapshot url.  On-demand snapshot generation just didn't really provide a stable experience.
+
+## Other Codec/Homekit Info
+Low/medium encoding uses h264 for video and high uses h265.  Low quality is 640x480, high is 1600x1200.  Have mine set to low quality, low encoding for now to try to start streams faster.
+
+My stream is fed to Scrypted RTSP cam, ondemand without Rebroadcast prebuffer.  Startup in Homekit seems to be affected more by where stream gets started in relation to keyframes (keyframe interval is 4 seconds).  If it gets started just before a keyframe it'll start in ~4-6 seconds.  If it starts just after a keyframe it'll start in 8-11 seconds.  Seems to be a by-product of no prebuffer.  Going to try a new doorbell transformer to see if it can't keep up with the discharge rate to keep a prebuffer 24/7.
+
+Below is info from oischinger's repo:
 
 # EufyP2PStream
 
