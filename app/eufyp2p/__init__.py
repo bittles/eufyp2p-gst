@@ -288,15 +288,15 @@ def buildFfmpegCommand(cam_name):
         ]
     return ffmpegcommand
 
-async def snapshotCmd(cam_name, snapshot_interval):
-    ffmpegcmd = buildFfmpegCommand(cam_name)
-    print(ffmpegcmd)
-    await asyncio.sleep(60)
-    while True:
-        print("Snapshot starting")
-        subprocess.Popen(ffmpegcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print("Snapshot created")
-        await asyncio.sleep(snapshot_interval)
+#async def snapshotCmd(cam_name, snapshot_interval):
+#    ffmpegcmd = buildFfmpegCommand(cam_name)
+#    print(ffmpegcmd)
+#    await asyncio.sleep(60)
+#    while True:
+#        print("Snapshot starting")
+#        subprocess.Popen(ffmpegcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#        print("Snapshot created")
+#        await asyncio.sleep(snapshot_interval)
         #else:
             #print("Error during snapshot, retrying in 10 seconds")
             #await asyncio.sleep(10)
@@ -324,11 +324,21 @@ async def main(run_event):
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
     #cmd = buildFfmpegCommand(CAMERA)
     #print(cmd)
+    cam_name = CAMERA
+    snapshot_interval = SSINTERVAL
+    ffmpegcmd = buildFfmpegCommand(cam_name)
+    print(ffmpegcmd)
+    await asyncio.sleep(60)
+    while True:
+        print("Snapshot starting")
+        subprocess.Popen(ffmpegcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("Snapshot created")
+        await asyncio.sleep(snapshot_interval)
     await asyncio.sleep(1000000000000000000000005)
 
 try:
     asyncio.run(main(run_event))
-    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
+#    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()
     run_event.clear()
