@@ -28,14 +28,10 @@
     },
     "ports": {
       "8541/tcp": 8541,
-      "63336/tcp": 63336,
-      "63337/tcp": 63337,
       "1997/tcp": 1997
     },
     "ports_description": {
       "8541/tcp": "Port for serving RTSP at x.x.x.x:<port>/camera1",
-      "63336/tcp": "TCP port for video",
-      "63337/tcp": "TCP port for audio",
       "1997/tcp": "Port for go2rtc web interface"
     }
 }
