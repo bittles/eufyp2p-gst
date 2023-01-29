@@ -322,9 +322,9 @@ async def main(run_event):
     await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-    cmd = buildFfmpegCommand(CAMERA)
-    print(cmd)
-    #asyncio.create_task(snapshotCmd(CAMERA, SSINTERVAL))
+    #cmd = buildFfmpegCommand(CAMERA)
+    #print(cmd)
+    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
     await asyncio.sleep(1000000000000000000000005)
 
 try:
