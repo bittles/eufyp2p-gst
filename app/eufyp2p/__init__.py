@@ -324,11 +324,11 @@ async def main(run_event):
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
     #cmd = buildFfmpegCommand(CAMERA)
     #print(cmd)
-    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
     await asyncio.sleep(1000000000000000000000005)
 
 try:
     asyncio.run(main(run_event))
+    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
 except (KeyboardInterrupt, SystemExit):
     #httpd.server_close()
     run_event.clear()
