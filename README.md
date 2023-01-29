@@ -1,4 +1,4 @@
-# Brach main in dev
+# Branch main in current development
 currently messing around with building this image with gstreamer to use gst-launch instead of ffmpeg to start streams
 
 # EufyP2PStream
