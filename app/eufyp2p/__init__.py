@@ -291,6 +291,8 @@ def buildFfmpegCommand(cam_name):
         ]
     return ffmpegcommand
 
+# build as non-async function and call in main
+# maybe... build as async with subprocess.returncode used with await, build loop outside of function call
 #async def snapshotCmd(cam_name, snapshot_interval):
 #    ffmpegcmd = buildFfmpegCommand(cam_name)
 #    print(ffmpegcmd)
@@ -329,10 +331,7 @@ async def main(run_event):
     await ws.send_message(json.dumps(START_LISTENING_MESSAGE))
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
-    #cmd = buildFfmpegCommand(CAMERA)
-    #print(cmd)
-#    cam_name = CAMERA
-#    snapshot_interval = SSINTERVAL
+
     print("Camera name is: ")
     print(CAMERA)
     print("Snapshot interval is: ")
@@ -341,7 +340,7 @@ async def main(run_event):
     print("FFmpeg snapshot command is:")
     print(ffmpegcmd)
     await asyncio.sleep(60)
-    while True:
+    while True: #need to hide stdout and show stderr, and use ifs with returncode
         print("Snapshot starting")
         subprocess.Popen(ffmpegcmd)
         print("Snapshot created")
@@ -350,7 +349,6 @@ async def main(run_event):
 
 try:
     asyncio.run(main(run_event))
-#    asyncio.run(snapshotCmd(CAMERA, SSINTERVAL))
+
 except (KeyboardInterrupt, SystemExit):
-    #httpd.server_close()
     run_event.clear()
