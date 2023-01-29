@@ -24,6 +24,8 @@ backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Default camera name in go2rtc
 CAMERA = 'camera1'
 # Take snapshot every interval seconds
+## set default to every 5 minutes
+SSINTERVAL = 300
 SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
 
 ffmpegbin = "/usr/bin/ffmpeg"
@@ -324,16 +326,18 @@ async def main(run_event):
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
     #cmd = buildFfmpegCommand(CAMERA)
     #print(cmd)
-    cam_name = CAMERA
-    snapshot_interval = SSINTERVAL
-    ffmpegcmd = buildFfmpegCommand(cam_name)
+#    cam_name = CAMERA
+#    snapshot_interval = SSINTERVAL
+    print("Camera name is: " + CAMERA)
+    print("Snapshot interval is: " + SSINTERVAL)
+    ffmpegcmd = buildFfmpegCommand(CAMERA)
     print(ffmpegcmd)
     await asyncio.sleep(60)
     while True:
         print("Snapshot starting")
         subprocess.Popen(ffmpegcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print("Snapshot created")
-        await asyncio.sleep(snapshot_interval)
+        await asyncio.sleep(SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
 
 try:
