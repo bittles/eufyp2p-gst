@@ -276,6 +276,7 @@ class Connector:
 def buildFfmpegCommand(cam_name):
     ffmpegcommand = [
         ffmpegbin,
+        "-y",
         "-analyzeduration", "1200000",
         "-f", "h264", 
         "-i", "tcp://127.0.0.1:63336?timeout=100000000",
