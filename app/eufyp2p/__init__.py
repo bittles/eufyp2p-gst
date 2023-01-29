@@ -307,7 +307,8 @@ async def main(run_event):
     with open("config.json") as f:
         config = json.load(f)
     # grab vars
-    SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
+#    SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
+    SSINTERVAL = 300 # set as default, get envs not working returned none
     CAMERA = 'camera1' # set default, placeholder till sed for go2rtc made
 
     c = Connector(run_event)
