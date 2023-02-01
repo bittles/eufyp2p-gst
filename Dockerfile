@@ -45,7 +45,7 @@ RUN if [ "${BUILD_ARCH}" = "amd64" ]; then apk add --no-cache libva-intel-driver
 RUN pip3 install aiohttp
 
 WORKDIR /
-COPY app/ /
+COPY app/ /app
 COPY config.json /app/
 # Set permissions
 RUN chmod a+x /usr/local/bin/* /app/run.sh
