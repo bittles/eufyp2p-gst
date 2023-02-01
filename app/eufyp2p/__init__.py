@@ -356,7 +356,7 @@ async def main(run_event):
     await asyncio.sleep(60)
     while True: #need use ifs with returncode
         print("Snapshot snapping")
-        subprocess.Popen(snapcmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        subprocess.Popen(snapcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await asyncio.sleep(SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
 
