@@ -16,6 +16,8 @@
     "ingress_port": "1997",
     "panel_icon": "mdi:camera-wireless",
     "map": [
+      "share:rw",
+      "media:rw",
       "config:rw"
     ],
     "ports": {
