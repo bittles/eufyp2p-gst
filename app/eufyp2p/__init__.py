@@ -293,7 +293,6 @@ def buildGstCmd(cam_name):
     gstcommand = [
         "gst-launch-1.0",
         "-e",
-        "-y",
         "rtspsrc",
         "protocols=tcp",
         "location=rtsp://127.0.0.1::" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
@@ -357,7 +356,7 @@ async def main(run_event):
     await asyncio.sleep(20)
     while True: #need use ifs with returncode
         print("Snapshot snapping")
-        subprocess.Popen(snapcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.Popen(snapcmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await asyncio.sleep(SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
 
