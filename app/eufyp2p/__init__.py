@@ -295,7 +295,7 @@ def buildGstCmd(cam_name):
         "-e",
         "rtspsrc",
         "protocols=tcp",
-        "location=rtsp://127.0.0.1::" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
+        "location=rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
         "latency=0",
         "!",
         "decodebin",
