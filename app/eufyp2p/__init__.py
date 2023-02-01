@@ -279,7 +279,7 @@ def buildFfmpegCommand(cam_name):
 #        "-analyzeduration", "1200000",
         "-rtsp_transport", "tcp",
         "-f", "h264", 
-        "-i", "tcp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
+        "-i", "rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
         "-hls_init_time", "0",
 #        "-hls_time", "2",
 #        "-hls_segment_type", "mpegts",
@@ -350,14 +350,13 @@ async def main(run_event):
     print(CAMERA)
     print("Snapshot interval is: ")
     print(SSINTERVAL)
-    snapcmd = buildFfmpegCommand(CAMERA)
+    snapcmd = buildGstCmd(CAMERA)
     print("Snapshot command is:")
     print(snapcmd)
     await asyncio.sleep(60)
     while True: #need use ifs with returncode
-        print("Snapshot starting")
+        print("Snapshot snapping")
         subprocess.Popen(snapcmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        print("Snapshot created")
         await asyncio.sleep(SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
 
