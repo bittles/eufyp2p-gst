@@ -354,7 +354,7 @@ async def main(run_event):
     snapcmd = buildGstCmd(CAMERA)
     print("Snapshot command is:")
     print(snapcmd)
-    await asyncio.sleep(60)
+    await asyncio.sleep(20)
     while True: #need use ifs with returncode
         print("Snapshot snapping")
         subprocess.Popen(snapcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
