@@ -27,7 +27,6 @@ CAMERA = 'camera1'
 ## set default to every 5 minutes
 SSINTERVAL = 300
 
-
 ffmpegbin = "/usr/bin/ffmpeg"
 
 EVENT_CONFIGURATION: dict = {
@@ -277,19 +276,37 @@ def buildFfmpegCommand(cam_name):
     ffmpegcommand = [
         ffmpegbin,
         "-y",
-        "-analyzeduration", "1200000",
+#        "-analyzeduration", "1200000",
+        "-rtsp_transport", "tcp",
         "-f", "h264", 
-        "-i", "tcp://127.0.0.1:63336?timeout=100000000",
-        "-strict",
-        "-2",
+        "-i", "tcp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
         "-hls_init_time", "0",
-        "-hls_time", "2",
-        "-hls_segment_type", "mpegts",
-        "-fflags", "genpts+nobuffer+flush_packets",
+#        "-hls_time", "2",
+#        "-hls_segment_type", "mpegts",
+#        "-fflags", "genpts+nobuffer+flush_packets",
         "-frames:v", "1",
         "/config/www/eufyp2p/" + cam_name + ".jpg"
         ]
     return ffmpegcommand
+
+def buildGstCmd(cam_name):
+    gstcommand = [
+        "gst-launch-1.0",
+        "-y",
+        "-e",
+        "rtspsrc",
+        "protocols=tcp",
+        "location=127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
+        "!",
+        "decodebin",
+        "!",
+        "jpegenc",
+        "snapshot=true",
+        "!",
+        "filesink",
+        "location=/config/www/eufyp2p/" + cam_name + ".jpg"
+        ]
+    return gstcommand
 
 # build as non-async function and call in main
 # maybe... build as async with subprocess.returncode used with await, build loop outside of function call
@@ -307,11 +324,8 @@ def buildFfmpegCommand(cam_name):
             #await asyncio.sleep(10)
 
 async def main(run_event):
-    with open("config.json") as f:
-        config = json.load(f)
-    # grab vars
-#    SSINTERVAL = os.getenv("SNAPSHOT_INTERVAL")
-    SSINTERVAL = 300 # set as default, get envs not working returned none
+
+    SSINTERVAL = 600 # set as default, get envs not working returned none
     CAMERA = 'camera1' # set default, placeholder till sed for go2rtc made
 
     c = Connector(run_event)
@@ -336,13 +350,13 @@ async def main(run_event):
     print(CAMERA)
     print("Snapshot interval is: ")
     print(SSINTERVAL)
-    ffmpegcmd = buildFfmpegCommand(CAMERA)
-    print("FFmpeg snapshot command is:")
-    print(ffmpegcmd)
+    snapcmd = buildFfmpegCommand(CAMERA)
+    print("Snapshot command is:")
+    print(snapcmd)
     await asyncio.sleep(60)
-    while True: #need to hide stdout and show stderr, and use ifs with returncode
+    while True: #need use ifs with returncode
         print("Snapshot starting")
-        subprocess.Popen(ffmpegcmd)
+        subprocess.Popen(snapcmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         print("Snapshot created")
         await asyncio.sleep(SSINTERVAL)
     await asyncio.sleep(1000000000000000000000005)
