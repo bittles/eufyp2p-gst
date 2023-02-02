@@ -351,7 +351,7 @@ async def main(run_event):
     print(SSINTERVAL)
     snapcmd = buildGstCmd(CAMERA)
     print("Snapshot command is:")
-    print(snapcmd)
+    print(" ".join(snapcmd))
     await asyncio.sleep(20)
     while True: #need use ifs with returncode
         print("Snapshot snapping")
