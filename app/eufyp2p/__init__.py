@@ -22,10 +22,10 @@ audio_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Default camera name in go2rtc
-CAMERA = 'camera1'
+audioVideoStream = 'camera1'
 # Take snapshot every interval in seconds
 ## set default to every 5 minutes
-SSINTERVAL = 300
+SSINTERVAL = 600
 
 ffmpegbin = "/usr/bin/ffmpeg"
 
@@ -327,8 +327,9 @@ def buildGstCmd(cam_name):
 async def main(run_event):
 
     SSINTERVAL = 600 # set as default, get envs not working returned none
-    CAMERA = 'camera1' # set default, placeholder till sed for go2rtc made
-
+    audioVideoStream = 'camera1' # set default, placeholder till sed for go2rtc made
+    videoStream = 'camera1_video'
+    audioStream = 'camera1_audio'
     c = Connector(run_event)
 
     ws: EufySecurityWebSocket = EufySecurityWebSocket(
@@ -347,11 +348,13 @@ async def main(run_event):
     await ws.send_message(json.dumps(SET_API_SCHEMA))
     await ws.send_message(json.dumps(DRIVER_CONNECT_MESSAGE))
 
-    print("Camera name is: ")
-    print(CAMERA)
+    print("Main stream name is: ")
+    print(audioVideoStream)
+    print("Video only stream name is: ")
+    print(videoStream)
     print("Snapshot interval is: ")
     print(SSINTERVAL)
-    snapcmd = buildGstCmd(CAMERA)
+    snapcmd = buildGstCmd(videoStream)
     print("Snapshot command is:")
     print(" ".join(snapcmd))
     await asyncio.sleep(20)
