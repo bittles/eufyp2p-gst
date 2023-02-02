@@ -188,7 +188,7 @@ class ClientRecvThread(threading.Thread):
             print("Timeout on socket for ", self.name)
             pass
         self.client_sock.close()
-        msg = STOP_TALKBACK.copy()
+        msg = []
         msg["serialNumber"] = self.serialno
         asyncio.run(self.ws.send_message(json.dumps(msg)))
 
