@@ -292,7 +292,6 @@ def buildFfmpegCommand(cam_name):
 def buildGstCmd(cam_name):
     gstcommand = [
         "gst-launch-1.0",
-        "-e",
         "rtspsrc",
         "protocols=tcp",
         "location=rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
