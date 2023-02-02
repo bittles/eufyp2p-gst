@@ -292,10 +292,12 @@ def buildFfmpegCommand(cam_name):
 def buildGstCmd(cam_name):
     gstcommand = [
         "gst-launch-1.0",
-        "rtspsrc",
-        "protocols=tcp",
-        "location=rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name + "?mp4",
-        "latency=0",
+#        "rtspsrc",
+#        "protocols=tcp",
+#        "location=rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name + "?mp4",
+#        "latency=0",
+        "souphttpsrc",
+        "location=http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
         "!",
         "decodebin",
         "!",
