@@ -1,9 +1,9 @@
 FROM bittles999/cerbero-bootstrap-bullseye
 
 WORKDIR /cerbero
-RUN cp ./data/autotools/config.guess /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.guess && \
-    cp ./data/autotools/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.sub
-RUN chmod -w /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.guess
+RUN cp ./data/autotools/config.guess /cerbero/build/sources/linux_arm64/cdparanoia-10.2/config.guess && \
+    cp ./data/autotools/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/config.sub
+RUN chmod -w /cerbero/build/sources/linux_arm64/cdparanoia-10.2/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/config.guess
 RUN ./cerbero-uninstalled build cdparanoia
 
 
