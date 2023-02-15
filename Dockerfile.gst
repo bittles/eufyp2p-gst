@@ -16,13 +16,11 @@ RUN \
     make gcc
 
 RUN pip3 install \
-    distro \
-      meson \
-      ninja \
-      wheel
+    distro
 
 RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
 
 
 WORKDIR ./cerbero
+RUN ./cerbero-uninstalled bootstrap
 RUN ./cerbero-uninstalled package gstreamer-1.0
