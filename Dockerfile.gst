@@ -22,4 +22,5 @@ RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/data/aut
 
 WORKDIR ./cerbero
 RUN ./cerbero-uninstalled bootstrap
-RUN ./cerbero-uninstalled package gstreamer-1.0
+RUN ./cerbero-uninstalled package cdparanoia
+#RUN ./cerbero-uninstalled package gstreamer-1.0
