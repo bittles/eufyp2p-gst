@@ -12,7 +12,8 @@ RUN \
     git \
     python3 \
     python3-pip \
-    wget
+    wget \
+    make
 
 RUN pip3 install \
     distro
