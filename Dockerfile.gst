@@ -22,6 +22,8 @@ RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.guess
 RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.sub
 
 RUN cp config.guess config.sub /cerbero/data/autotools/
+RUN mkdir -p /cerbero/build/sources/linux_arm64/cdparanoia-10.2
+RUN cp config.guess config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2
 
 WORKDIR /cerbero
 RUN ./cerbero-uninstalled bootstrap
