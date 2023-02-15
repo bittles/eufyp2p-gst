@@ -4,7 +4,7 @@ ARG GST_VERSION="1.22"
 ARG CERBERO_VERSION="1.22.0"
 
 WORKDIR /
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     apt-get update \
     \
@@ -16,8 +16,9 @@ RUN \
 RUN pip3 install \
     distro
 
-#RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
-COPY cerbero/ /cerbero
+RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
+RUN wget https://git.savannah.gnu.org/cgit/config.git/tree/config.guess
+RUN wget https://git.savannah.gnu.org/cgit/config.git/tree/config.sub
 
 COPY config.guess /cerbero/data/autotools/
 COPY config.sub /cerbero/data/autotools/
