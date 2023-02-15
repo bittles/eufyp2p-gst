@@ -16,11 +16,12 @@ RUN \
 RUN pip3 install \
     distro
 
-RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
+#RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
+RUN cp -r cerbero ./
 
-RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/data/autotools
-RUN mkdir -p /cerbero/build/sources/linux_arm64/cdparanoia-10.2
-RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2
+#RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/data/autotools
+#RUN mkdir -p /cerbero/build/sources/linux_arm64/cdparanoia-10.2
+#RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2
 
 WORKDIR ./cerbero
 RUN ./cerbero-uninstalled bootstrap
