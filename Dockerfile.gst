@@ -23,9 +23,15 @@ RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.sub
 
 RUN cp config.guess config.sub /cerbero/data/autotools/
 RUN mkdir -p /cerbero/build/sources/linux_arm64/cdparanoia-10.2
-RUN cp config.guess config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2
+#RUN cp config.guess config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/
+RUN cp config.guess /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.guess
+RUN cp config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.sub
 
 WORKDIR /cerbero
 RUN ./cerbero-uninstalled bootstrap
+RUN ./cerbero-uninstalled build cdparanoia
+#RUN cp ./data/autotools/config.guess ./data/autotools/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/
+RUN cp ./data/autotools/config.guess /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.guess
+RUN cp ./data/autotools/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2/configure.sub
 RUN ./cerbero-uninstalled build cdparanoia
 #RUN ./cerbero-uninstalled package gstreamer-1.0
