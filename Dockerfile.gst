@@ -18,6 +18,7 @@ RUN pip3 install \
 
 RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
 
+RUN cp /usr/share/automake*/config.guess /usr/share/automake*/config.sub /cerbero/data/autotools
 
 WORKDIR ./cerbero
 RUN ./cerbero-uninstalled bootstrap
