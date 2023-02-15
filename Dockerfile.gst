@@ -18,8 +18,8 @@ RUN pip3 install \
     distro
 
 RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
-RUN wget https://git.savannah.gnu.org/cgit/config.git/tree/config.guess
-RUN wget https://git.savannah.gnu.org/cgit/config.git/tree/config.sub
+RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.guess
+RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.sub
 
 COPY config.guess /cerbero/data/autotools/
 COPY config.sub /cerbero/data/autotools/
