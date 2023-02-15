@@ -14,6 +14,9 @@ RUN \
     python3-pip \
     wget
 
+RUN pip3 install \
+    distro
+
 RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer/cerbero
 
 
