@@ -1,12 +1,12 @@
 {
-    "name": "eufyp2p-gst",
+    "name": "eufyp2p-gst-s6",
     "description": "Eufy P2P camera streaming application with gst-launch-1.0",
     "url": "https://github.com/bittles/eufyp2p-gst",
     "arch": [
         "aarch64"
     ],
-    "version": "0.3",
-    "slug": "eufyp2p-gst",
+    "version": "0.4",
+    "slug": "eufyp2p-gst-s6",
     "init": false,
     "startup": "application",
     "host_network": true,
