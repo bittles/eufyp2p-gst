@@ -21,10 +21,7 @@ RUN git clone --depth 1 --branch ${CERBERO_VERSION} https://github.com/GStreamer
 RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.guess
 RUN wget https://git.savannah.gnu.org/cgit/config.git/plain/config.sub
 
-COPY config.guess /cerbero/data/autotools/
-COPY config.sub /cerbero/data/autotools/
-#RUN mkdir -p /cerbero/build/sources/linux_arm64/cdparanoia-10.2
-#RUN cp /usr/share/misc/config.guess /usr/share/misc/config.sub /cerbero/build/sources/linux_arm64/cdparanoia-10.2
+RUN cp config.guess config.sub /cerbero/data/autotools/
 
 WORKDIR /cerbero
 RUN ./cerbero-uninstalled bootstrap
