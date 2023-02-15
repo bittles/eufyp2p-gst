@@ -4,7 +4,7 @@ ARG GST_VERSION="1.22"
 ARG CERBERO_VERSION="1.22.0"
 
 WORKDIR /
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     apt-get update \
     \
