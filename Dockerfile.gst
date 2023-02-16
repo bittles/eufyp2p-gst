@@ -10,5 +10,5 @@ RUN cp ./data/autotools/config.sub ./build/sources/linux_arm64/cdparanoia-10.2/c
 RUN cp ./data/autotools/config.guess ./data/autotools/config.sub ./build/sources/linux_arm64/cdparanoia-10.2/
 
 RUN ./cerbero-uninstalled build cdparanoia -s compile
-RUN ./cerbero-uninstalled build cdparanoia
-#RUN ./cerbero-uninstalled package gstreamer-1.0
+#RUN ./cerbero-uninstalled build cdparanoia
+RUN ./cerbero-uninstalled package gstreamer-1.0
