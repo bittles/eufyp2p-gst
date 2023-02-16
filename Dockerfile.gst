@@ -2,7 +2,7 @@ FROM bittles999/cerbero-bootstrap-bullseye
 
 WORKDIR /cerbero
 
-RUN ./cerbero-uninstalled build cdparanoia --steps fetch,extract
+RUN ./cerbero-uninstalled build cdparanoia -s fetch -s extract
 
 
 #RUN cp ./data/autotools/config.guess ./build/sources/linux_arm64/cdparanoia-10.2/configure.guess
