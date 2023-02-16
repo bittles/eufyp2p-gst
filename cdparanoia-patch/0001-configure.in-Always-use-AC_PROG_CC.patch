@@ -7,11 +7,14 @@ Subject: [PATCH] configure.in: Always use AC_PROG_CC
  configure.in | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
+cp ./data/autotools/config.sub ./build/sources/linux_arm64/cdparanoia-10.2/configure.sub
+cp ./data/autotools/config.guess ./build/sources/linux_arm64/cdparanoia-10.2/configure.guess
+cp ./data/autotools/config.sub ./data/autotools/config.sub ./build/sources/linux_arm64/cdparanoia-10.2/
 diff --git a/configure.in b/configure.in
 index 3ad98ca..8fad378 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -5,9 +5,7 @@ cp /cerbero/data/autotools/config.sub $srcdir/config.sub
+@@ -5,9 +5,7 @@ cp $srcdir/configure.sub $srcdir/config.sub
  
  AC_CANONICAL_HOST
  
