@@ -2,7 +2,7 @@ FROM bittles999/cerbero-bootstrap-bullseye
 
 WORKDIR /cerbero
 
-#RUN apt-get install -y cd-paranoia
+RUN apt-get install -y cd-paranoia
 
 RUN ./cerbero-uninstalled fetch cdparanoia
 RUN ./cerbero-uninstalled build cdparanoia -s extract
