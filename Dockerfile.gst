@@ -1,5 +1,5 @@
 FROM bittles999/cerbero-bootstrap-bullseye
-SHELL ["/bin/bash"]
+
 WORKDIR /cerbero
 
 #RUN find /cerbero/ | grep config.
