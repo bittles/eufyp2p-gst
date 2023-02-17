@@ -17,4 +17,4 @@ RUN ./cerbero-uninstalled build cdparanoia -s install
 RUN ./cerbero-uninstalled build cdparanoia -s post_install
 #RUN ./cerbero-uninstalled build cdparanoia
 
-#RUN ./cerbero-uninstalled  -v mingw package gstreamer-1.0
+RUN ./cerbero-uninstalled  -v mingw package gstreamer-1.0
