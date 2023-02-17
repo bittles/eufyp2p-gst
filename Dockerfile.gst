@@ -18,5 +18,6 @@ WORKDIR /cerbero
 #RUN ./cerbero-uninstalled build cdparanoia
 
 COPY recipes/ ./
+RUN rm -rf ./recipes/cdpara*
 
 RUN ./cerbero-uninstalled  -v mingw package gstreamer-1.0
