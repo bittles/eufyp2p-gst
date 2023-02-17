@@ -2,7 +2,7 @@ FROM bittles999/cerbero-bootstrap-bullseye
 
 WORKDIR /cerbero
 
-#RUN apt-get install -y libcdparanoia-dev
+RUN apt-get install -y libfaad-dev
 
 #RUN ./cerbero-uninstalled fetch cdparanoia
 #RUN ./cerbero-uninstalled build cdparanoia -s extract
@@ -20,4 +20,4 @@ WORKDIR /cerbero
 COPY recipes/ ./
 #RUN rm -rf ./recipes/cdpara*
 
-RUN ./cerbero-uninstalled -v nocdparanoia -v qt5 -v mingw package gstreamer-1.0
+RUN ./cerbero-uninstalled -v nocdparanoia -v mingw package gstreamer-1.0
