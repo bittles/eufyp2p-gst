@@ -123,7 +123,7 @@ RUN \
         libva-wayland2 \
         xvfb \
         libxrandr-dev \
-        glibc-tools
+        libc-bin
 
 COPY docker/install-arch-specific-dependencies.sh /.install-deps.sh
 RUN /.install-deps.sh
