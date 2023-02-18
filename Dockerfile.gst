@@ -20,4 +20,4 @@ RUN apt-get install -y libfaad-dev
 COPY recipes/ ./
 #RUN rm -rf ./recipes/cdpara*
 
-RUN ./cerbero-uninstalled -v nocdparanoia -v mingw package gstreamer-1.0
+RUN ./cerbero-uninstalled -c config/cross-lin-arm64.cbc -v nocdparanoia gstreamer-1.0

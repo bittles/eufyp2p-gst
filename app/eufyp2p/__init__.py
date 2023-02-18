@@ -24,8 +24,8 @@ backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Default camera name in go2rtc
 audioVideoStream = 'camera1'
 # Take snapshot every interval in seconds
-## set default to every 5 minutes
-SSINTERVAL = 600
+## set default to every 30 minutes
+SSINTERVAL = 1800
 
 ffmpegbin = "/usr/bin/ffmpeg"
 
