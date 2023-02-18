@@ -2,9 +2,12 @@
 set -e
 
 #git clone --no-checkout "$GSTREAMER_REPOSITORY"
-#pushd gstreamer
+
 #git checkout "$GSTREAMER_CHECKOUT"
+
 git clone --depth 1 --branch ${GST_VERSION} https://github.com/GStreamer/gstreamer
+pushd gstreamer
+
 # rtpvp8depay: Also wait for keyframes if configured so if incomplete frames are detected
 #wget -O - https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/2947.diff | git apply
 popd
