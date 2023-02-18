@@ -19,7 +19,7 @@ RUN \
 # Grab GO2RTC and ngrok binaries, not sure if ngrok needed.  It's in go2rtc addon
 # Versions
 ARG BUILD_ARCH
-ARG GO2RTC_VERSION="v1.1.2"
+ARG GO2RTC_VERSION="v1.2.0"
 ARG NGROK_VERSION="v3-3.1.1"
 # Set non-matching defaults to make sure they set right
 ARG GO2RTC_ARCH="amd64"
