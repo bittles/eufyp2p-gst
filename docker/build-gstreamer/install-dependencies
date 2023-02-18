@@ -2,7 +2,7 @@
 set -e
 
 export DEBIAN_FRONTEND=noninteractive
-export CLANG_VERSION=12
+export CLANG_VERSION=13
 
 sed -i 's/# deb-src/deb-src/g' /etc/apt/sources.list
 apt-get update
