@@ -1,3 +1,6 @@
+## 0.4
+- bump go2rtc to 1.2.0
+
 ## 0.3
 - Change interval snapshot to rtsp instead of grabbing from websocket
 - Use gstreamer to capture snapshot
