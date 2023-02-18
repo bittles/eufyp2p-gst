@@ -1,5 +1,9 @@
-## 0.4
+## 0.5
 - bump go2rtc to 1.2.0
+- change snapshot interval from 10 to 30 min
+
+## 0.4
+- go2rtc to 1.1.2
 
 ## 0.3
 - Change interval snapshot to rtsp instead of grabbing from websocket
