@@ -30,19 +30,19 @@ DESTDIR=/compiled-binaries ninja -C build install
 popd
 
 # Build the GStreamer CEF plugin
-pushd gstcefsrc
-source /.cef-config.sh
-GST_CEF_CMAKE_OPTS="-DCMAKE_INSTALL_PREFIX=/usr/cef -GNinja -DCEF_BUILDS_HOMEPAGE_URL=$CEF_DOWNLOAD_URL -DCEF_VERSION=$CEF_VERSION"
+#pushd gstcefsrc
+#source /.cef-config.sh
+#GST_CEF_CMAKE_OPTS="-DCMAKE_INSTALL_PREFIX=/usr/cef -GNinja -DCEF_BUILDS_HOMEPAGE_URL=$CEF_DOWNLOAD_URL -DCEF_VERSION=$CEF_VERSION"
 
 # TODO: Build CEF Debug artifacts as well.
-GST_CEF_BUILD_TYPE=Release
+#GST_CEF_BUILD_TYPE=Release
 
-cmake -DCMAKE_BUILD_TYPE=$GST_CEF_BUILD_TYPE $GST_CEF_CMAKE_OPTS -B build -S .
-DESTDIR=/compiled-binaries ninja -C build install
-rm -fr build third_party
-popd
+#cmake -DCMAKE_BUILD_TYPE=$GST_CEF_BUILD_TYPE $GST_CEF_CMAKE_OPTS -B build -S .
+#DESTDIR=/compiled-binaries ninja -C build install
+#rm -fr build third_party
+#popd
 
-chown root:root /compiled-binaries/usr/cef/chrome-sandbox
-chmod 4755 /compiled-binaries/usr/cef/chrome-sandbox
+#chown root:root /compiled-binaries/usr/cef/chrome-sandbox
+#chmod 4755 /compiled-binaries/usr/cef/chrome-sandbox
 
 gst-inspect-1.0
