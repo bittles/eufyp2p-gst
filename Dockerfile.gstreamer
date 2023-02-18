@@ -1,5 +1,8 @@
 FROM bittles999/hassio-gst-downloaded
 
+# update compile script
+COPY docker/build-gstreamer/compile /compile
+
 #ARG WEBKIT_USE_SCCACHE=0
 
 ENV DEBUG=false
