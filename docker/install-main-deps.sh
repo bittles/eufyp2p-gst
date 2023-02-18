@@ -1,3 +1,8 @@
+#!/bin/bash
+set -e
+
+sed -i 's/main/main non-free/g' /etc/apt/sources.list
+
 apt-get update && \
 #apt-get dist-upgrade -y && \
 apt-get install -y --no-install-recommends \
@@ -9,7 +14,7 @@ apt-get install -y --no-install-recommends \
     libunwind8 \
     libdw1 \
     libgmp10 \
-    libgsl27 \
+    libgsl25 \
     libglib2.0-0 \
     libcap2 \
     libcups2 \
@@ -22,7 +27,7 @@ apt-get install -y --no-install-recommends \
     libgbm1 \
     libgraphene-1.0-dev \
     libpng16-16 \
-    libjpeg8 \
+    libjpeg62-turbo \
     libogg0 \
     libopus0 \
     libpango-1.0-0 \
@@ -40,7 +45,7 @@ apt-get install -y --no-install-recommends \
     libegl1 \
     libepoxy0 \
     libgcrypt20 \
-    libwebp7 \
+    libwebp6 \
     libwebpdemux2 \
     libwebpmux3 \
     libopenjp2-7 \
@@ -54,7 +59,7 @@ apt-get install -y --no-install-recommends \
     libass9 \
     libchromaprint1 \
     libcurl3-gnutls \
-    libaom3 \
+    libaom0 \
     libbz2-1.0 \
     liblcms2-2 \
     libbs2b0 \
@@ -62,7 +67,7 @@ apt-get install -y --no-install-recommends \
     libfaac0 \
     libfaad2 \
     libflite1 \
-    libssl3 \
+    libssl1.1 \
     ladspa-sdk \
     libfdk-aac2 \
     libgsm1 \
@@ -91,7 +96,7 @@ apt-get install -y --no-install-recommends \
     libzvbi0 \
     libopenexr25 \
     libwildmidi2 \
-    libx265-199 \
+    libx265-192 \
     libzbar0 \
     wayland-protocols \
     libaa1 \
@@ -99,14 +104,14 @@ apt-get install -y --no-install-recommends \
     libcaca0 \
     libdv4 \
     libmpg123-0 \
-    libvpx7 \
+    libvpx6 \
     libshout3 \
     libspeex1 \
     libtag1v5 \
     libtwolame0 \
     libwavpack1 \
     liba52-0.7.4 \
-    libx264-163 \
+    libx264-160 \
     libopencore-amrnb0 \
     libopencore-amrwb0 \
     libmpeg2-4 \
