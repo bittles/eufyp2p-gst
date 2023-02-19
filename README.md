@@ -8,7 +8,9 @@ More flexbility in RTSP url generation and manipulation for Eufy Doorbell using 
 
 Gstreamer pipeline.
 
-If koush exposes two-way audio in Homekit in RTSP or FFmpeg cams I'll probably put talkback in.
+If koush exposes two-way audio in Homekit in RTSP or FFmpeg cams I'll probably put talkback back in.
+
+Working on transitioning to alpine with s6 startups on hassio addon base with amd64, armhf, and arm64 compatibility.  Having issues building gstreamer.
 
 ## Progress
 As of version 0.2 gst-launch-1.0 pipelines can be built and used in the go2rtc config.  Camera name must be left as default 'camera1' for now.  TCP port 63336 is used for video, 63337 for audio, 63338 is just for talkback (I think).  Config file is stored in /config/eufyp2p/go2rtc.yaml.  Default config works for my Eufy 2k Battery Doorbell, encoding has to be set to Low (Medium looks like it may work).
@@ -18,7 +20,9 @@ Options for custom snapshot interval don't currently work.  FFmpeg subprocess cr
 ## Other Codec/Homekit Info
 Low/medium encoding uses h264 for video and high uses h265.  Low quality is 640x480, high is 1600x1200.  Have mine set to low quality, low encoding for now to try to start streams faster.
 
-My stream is fed to Scrypted RTSP cam, ondemand without Rebroadcast prebuffer.  Startup in Homekit seems to be affected more by where stream gets started in relation to keyframes (keyframe interval is 4 seconds).  If it gets started just before a keyframe it'll start in ~4-6 seconds.  If it starts just after a keyframe it'll start in 8-11 seconds.  Seems to be a by-product of no prebuffer.  Going to try a new doorbell transformer to see if it can't keep up with the discharge rate to keep a prebuffer 24/7.
+My stream is fed to Scrypted RTSP cam, ondemand without Rebroadcast prebuffer.  Startup in Homekit seems to be affected more by where stream gets started in relation to keyframes (keyframe interval is 4 seconds).  If it gets started just before a keyframe it'll start in ~4-6 seconds.  If it starts just after a keyframe it'll start in 8-11 seconds.  Seems to be a by-product of no prebuffer.  
+
+Swapped doorbell transformer from 16 V 10 VAC to 16 V 24 VAC and prebuffering stream in Scrypted isn't draining battery, but it's only been one day.  Prebuffering might break Eufy Security Addon push notifs though.  Motion not coming in now.  Need to dig into it some.
 
 Below is info from oischinger's repo:
 
