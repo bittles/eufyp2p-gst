@@ -23,6 +23,10 @@ if [[ $DEBUG == 'true' ]]; then
 else
   meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=release -D b_lto=true
 fi
+
+# these didn't link right (don't think they're in restreamio's deps) and they're kind of niche anyways.  disabling them here
+MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-good:x11=disabled -Dgst-plugins-good:xi=disabled -Dgst-plugins-bad:x11=disabled -Dgst-plugins-bad:fluidsynth=disabled -Dgst-plugins-bad:qroverlay=disabled"
+
 # This is needed for other plugins to be built properly
 ninja -C build install
 # This is where we'll grab build artifacts from
