@@ -5,8 +5,8 @@
     "arch": [
         "aarch64"
     ],
-    "version": "0.4",
     "slug": "eufyp2p-gst-s6",
+    "version": "0.5",
     "init": false,
     "startup": "application",
     "host_network": true,
@@ -26,4 +26,3 @@
       "8541/tcp": "Port for serving RTSP at x.x.x.x:<port>/camera1",
       "1997/tcp": "Port for go2rtc web interface"
     }
-}
