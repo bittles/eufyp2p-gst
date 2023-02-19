@@ -7,10 +7,10 @@ FROM bittles999/hassio-gstreamer
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        curl \
+#        curl \
         ffmpeg \
         gzip \
-        jq \
+#        jq \
         psmisc \
         python3-pip \
         tar \
@@ -43,14 +43,37 @@ RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then GO2RTC_ARCH="arm64"; fi \
 
 # Hardware Acceleration for Intel CPU for go2rtc (+50MB)
 RUN if [ "${BUILD_ARCH}" = "amd64" ]; then apk add --no-cache libva-intel-driver intel-media-driver; fi
+
 # Install aiohttp
 RUN pip3 install aiohttp
-
-WORKDIR /
-COPY app/ /app
-COPY config.json /app/
 # Set permissions
-RUN chmod a+x /usr/local/bin/* /app/run.sh
+RUN chmod a+x /etc/s6-overlay/s6-rc.d/go2rtc/* /etc/s6-overlay/s6-rc.d/eufyp2p/* /usr/local/bin/*
 WORKDIR /app
 
-CMD ["bash", "run.sh"]
+## add labels
+
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_DESCRIPTION
+ARG BUILD_NAME
+ARG BUILD_REF
+ARG BUILD_REPOSITORY
+ARG BUILD_VERSION
+LABEL \
+    io.hass.name="${BUILD_NAME}" \
+    io.hass.description="${BUILD_DESCRIPTION}" \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.type="addon" \
+    io.hass.version=${BUILD_VERSION} \
+    maintainer="bittles (https://github.com/bittles)" \
+    org.opencontainers.image.title="${BUILD_NAME}" \
+    org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
+    org.opencontainers.image.vendor="Home Assistant Add-ons" \
+    org.opencontainers.image.authors="bittles (https://github.com/bittles)" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.url="https://github.com/bittles" \
+    org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
+    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
+    org.opencontainers.image.created=${BUILD_DATE} \
+    org.opencontainers.image.revision=${BUILD_REF} \
+    org.opencontainers.image.version=${BUILD_VERSION}
