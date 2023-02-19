@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gst-downloaded -f Dockerfile.downloaded .
+docker build -t bittles999/hassio-gst-downloaded:ubuntu -f Dockerfile.downloaded .

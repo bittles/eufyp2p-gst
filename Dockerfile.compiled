@@ -1,6 +1,4 @@
-FROM bittles999/hassio-gst-downloaded
-
-#ARG WEBKIT_USE_SCCACHE=0
+FROM bittles999/hassio-gst-downloaded:ubuntu
 
 ENV DEBUG=false
 ENV OPTIMIZATIONS=true

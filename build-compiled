@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gst-compiled -f Dockerfile.compiled .
+docker build -t bittles999/hassio-gst-compiled:ubuntu -f Dockerfile.compiled .
