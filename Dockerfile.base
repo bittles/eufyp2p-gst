@@ -1,6 +1,6 @@
 FROM bittles999/addon-ubuntu-base-jammy
 
-ARG DEBIAN_FRONTEND=noninteractive
+#ARG DEBIAN_FRONTEND=noninteractive
 
 COPY docker/install-main-deps /install-main-deps
 RUN /install-main-deps
