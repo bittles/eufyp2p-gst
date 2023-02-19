@@ -129,7 +129,10 @@ apt-get install -y --no-install-recommends \
   libudev-dev \
   libc-bin \
   libqrencode-dev \
-  libjson-glib-dev
+  libjson-glib-dev \
+  libxi-dev \
+  libfluidsynth-dev \
+  libqrencode-dev
 pip3 install meson ninja
 
 ARCH=$(dpkg --print-architecture)

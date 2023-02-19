@@ -123,4 +123,7 @@ apt-get install -y --no-install-recommends \
     libva-wayland2 \
     xvfb \
     libxrandr-dev \
-    libc-bin
+    libc-bin \
+    libxi-dev \
+    libfluidsynth-dev \
+    libqrencode-dev
