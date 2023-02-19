@@ -1,5 +1,5 @@
-FROM bittles999/hassio-gst-compiled
+FROM bittles999/hassio-gst-compiled:ubuntu
 
-FROM bittles999/hassio-gst-base
+FROM bittles999/hassio-gst-base:ubuntu
 
 COPY --from=0 /compiled-binaries /
