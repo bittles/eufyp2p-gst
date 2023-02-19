@@ -1,3 +1,7 @@
+## 0.6
+- switch to hassio-debian base and s6overlay. image size down from ~2.8gb to 900mb
+- config option importing next
+
 ## 0.5
 - bump go2rtc to 1.2.0
 - change snapshot interval from 10 to 30 min
