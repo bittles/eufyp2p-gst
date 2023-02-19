@@ -15,7 +15,7 @@ if [[ $ARCH == "amd64" ]]; then
 fi
 
 # these didn't link right (don't think they're in restreamio's deps) and they're kind of niche anyways.  disabling them here
-MESON_OPTIONS="$MESON_OPTIONS -Dx11=disabled -Dxi=disabled -Dgst-plugins-bad:fluiddec=disabled -Dgst-plugins-bad:qroverlay=disabled"
+MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-base:x11=disabled -Dgst-plugins-bad:fluiddec=disabled -Dgst-plugins-bad:qroverlay=disabled"
 
 if [[ $DEBUG == 'true' ]]; then
   if [[ $OPTIMIZATIONS == 'true' ]]; then
