@@ -126,4 +126,5 @@ apt-get install -y --no-install-recommends \
     libc-bin \
     libxi-dev \
     libfluidsynth-dev \
-    libqrencode-dev
+    libqrencode-dev \
+    libjson-glib-dev
