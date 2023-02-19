@@ -44,6 +44,8 @@ RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then GO2RTC_ARCH="arm64"; fi \
 # Hardware Acceleration for Intel CPU for go2rtc (+50MB)
 RUN if [ "${BUILD_ARCH}" = "amd64" ]; then apk add --no-cache libva-intel-driver intel-media-driver; fi
 
+COPY root/ /
+
 # Install aiohttp
 RUN pip3 install aiohttp
 # Set permissions
