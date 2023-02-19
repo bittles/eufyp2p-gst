@@ -3,8 +3,8 @@ set -e
 
 sed -i 's/main/main non-free/g' /etc/apt/sources.list
 
-apt-get update && \
-#apt-get dist-upgrade -y && \
+apt-get update
+#apt-get dist-upgrade -y
 apt-get install -y --no-install-recommends \
     ca-certificates \
     libatk1.0-0 \
