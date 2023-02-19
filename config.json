@@ -26,3 +26,4 @@
       "8541/tcp": "Port for serving RTSP at x.x.x.x:<port>/camera1",
       "1997/tcp": "Port for go2rtc web interface"
     }
+}
