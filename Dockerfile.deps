@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/aarch64-base-ubuntu:20.04
+FROM bittles999/addon-ubuntu-base-jammy
 
 COPY docker/build-gstreamer/install-dependencies /
 
