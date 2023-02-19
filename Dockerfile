@@ -1,6 +1,7 @@
 # use restreamio ubuntu gstreamer base
 ARG BUILD_ARCH
-FROM restreamio/gstreamer:${BUILD_ARCH}-latest-prod
+#FROM restreamio/gstreamer:${BUILD_ARCH}-latest-prod
+FROM bittles999/hassio-gstreamer
 
 # Install ffmpeg, tini (for signal handling), and other common tools for the echo source.
 RUN \
