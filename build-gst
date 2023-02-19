@@ -1,1 +1,0 @@
-docker build -t bittles999/gstreamer-bullseye -f Dockerfile.gst . > gstlog.log
