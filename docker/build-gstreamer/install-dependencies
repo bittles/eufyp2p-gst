@@ -2,11 +2,11 @@
 set -e
 
 export DEBIAN_FRONTEND=noninteractive
-export CLANG_VERSION=13
+export CLANG_VERSION=12
 
-sed -i 's/main/main non-free/g' /etc/apt/sources.list
+sed -i 's/# deb-src/deb-src/g' /etc/apt/sources.list
 apt-get update
-#apt-get dist-upgrade -y
+apt-get dist-upgrade -y
 apt-get install -y --no-install-recommends \
   ca-certificates \
   git \
@@ -127,12 +127,9 @@ apt-get install -y --no-install-recommends \
   libavutil-dev \
   libva-dev \
   libudev-dev \
-  libc-bin \
+  glibc-tools \
   libqrencode-dev \
-  libjson-glib-dev \
-  libxi-dev \
-  libfluidsynth-dev \
-  libqrencode-dev
+  libjson-glib-dev
 pip3 install meson ninja
 
 ARCH=$(dpkg --print-architecture)
@@ -145,21 +142,5 @@ fi
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
-# SCCache can be used to speed-up WPE compilation. You need cloud builders setup
-# though. SCCache binaries are available for arm64 but don't support toolchain
-# packaging, so skip this when building on arm64.
-if [[ $ARCH == "amd64" ]]; then
-  MACHINE=$(uname -m)
-  export SCCACHE_VERSION="0.2.14"
-  wget https://github.com/mozilla/sccache/releases/download/$SCCACHE_VERSION/sccache-$SCCACHE_VERSION-$MACHINE-unknown-linux-musl.tar.gz
-  tar xf sccache-$SCCACHE_VERSION-$MACHINE-unknown-linux-musl.tar.gz
-  mv sccache-$SCCACHE_VERSION-$MACHINE-unknown-linux-musl/sccache /usr/bin
-  rm -rf sccache-$SCCACHE_VERSION-$MACHINE-unknown-linux-musl
-
-  ln -s /usr/bin/clang{-$CLANG_VERSION,}
-  ln -s /usr/bin/clang++{-$CLANG_VERSION,}
-
-  sccache --package-toolchain /usr/bin/clang-$CLANG_VERSION /toolchain-clang-$CLANG_VERSION.tar.gz
-fi
 
 wget -O- https://sh.rustup.rs | sh -s -- -y --default-toolchain stable

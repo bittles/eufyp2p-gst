@@ -1,4 +1,4 @@
-FROM ghcr.io/hassio-addons/debian-base:6.2.1
+FROM ghcr.io/home-assistant/aarch64-base-ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
