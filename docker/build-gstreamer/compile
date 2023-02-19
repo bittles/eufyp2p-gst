@@ -11,7 +11,7 @@ MESON_OPTIONS="-Dvaapi=enabled -Dgpl=enabled -Dgst-examples=disabled -Dexamples=
 
 ARCH=$(dpkg --print-architecture)
 if [[ $ARCH == "amd64" ]]; then
-    MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-bad:msdk=enabled"
+    MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-bad:msdk=enabled "
 fi
 
 if [[ $DEBUG == 'true' ]]; then
