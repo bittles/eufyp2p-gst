@@ -14,9 +14,6 @@ if [[ $ARCH == "amd64" ]]; then
     MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-bad:msdk=enabled"
 fi
 
-# these didn't link right (don't think they're in restreamio's deps) and they're kind of niche anyways.  disabling them here
-#MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-base:x11=disabled -Dgst-plugins-bad:fluiddec=disabled -Dgst-plugins-bad:qroverlay=disabled"
-
 if [[ $DEBUG == 'true' ]]; then
   if [[ $OPTIMIZATIONS == 'true' ]]; then
     meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=debugoptimized
@@ -26,7 +23,6 @@ if [[ $DEBUG == 'true' ]]; then
 else
   meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=release -D b_lto=true
 fi
-
 # This is needed for other plugins to be built properly
 ninja -C build install
 # This is where we'll grab build artifacts from
