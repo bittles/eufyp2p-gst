@@ -2,14 +2,14 @@ FROM bittles999/addon-ubuntu-base-jammy
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY docker/install-main-deps.sh /install-main-deps.sh
-RUN /install-main-deps.sh
+COPY docker/install-main-deps /install-main-deps
+RUN /install-main-deps
 
-COPY docker/install-arch-specific-dependencies.sh /install-deps.sh
-RUN /install-deps.sh
+COPY docker/install-arch-specific-dependencies /install-deps
+RUN /install-deps
 
 RUN \
-    rm -f /install-deps.sh && \
-    rm -f /install-main-deps.sh && \
+    rm -f /install-deps && \
+    rm -f /install-main-deps && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
