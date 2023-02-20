@@ -124,4 +124,5 @@ apt-get install -y --no-install-recommends \
     libxv1 \
     libxt6 \
     libqrencode4 \
-    libfluidsynth3
+    libfluidsynth3 \
+    libjson-glib-1.0-0
