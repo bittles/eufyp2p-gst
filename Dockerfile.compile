@@ -1,4 +1,4 @@
-FROM bittles999/hassio-gst-downloaded:ubuntu
+FROM bittles999/hassio-gst-src:ubuntu
 
 ENV DEBUG=false
 ENV OPTIMIZATIONS=true

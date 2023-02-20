@@ -1,4 +1,4 @@
-FROM bittles999/hassio-gst-deps:ubuntu
+FROM bittles999/hassio-gst-build-deps:ubuntu
 
 ARG GST_VERSION="1.22"
 

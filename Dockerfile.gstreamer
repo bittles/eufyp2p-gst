@@ -1,4 +1,4 @@
-FROM bittles999/hassio-gst-compiled:ubuntu
+FROM bittles999/hassio-gst-compile:ubuntu
 
 FROM bittles999/hassio-gst-base:ubuntu
 
