@@ -131,7 +131,10 @@ apt-get install -y --no-install-recommends \
   libqrencode-dev \
   libjson-glib-dev \
   libxv-dev \
-  libxt-dev
+  libxt-dev \
+  libx11-dev \
+  libtool \
+  libasound2-dev
 pip3 install meson ninja
 
 ARCH=$(dpkg --print-architecture)
@@ -141,8 +144,7 @@ if [[ $ARCH == "amd64" ]]; then
      intel-media-va-driver-non-free
 fi
 
+wget -O- https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+
 apt-get clean
 rm -rf /var/lib/apt/lists/*
-
-
-wget -O- https://sh.rustup.rs | sh -s -- -y --default-toolchain stable

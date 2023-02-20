@@ -125,4 +125,6 @@ apt-get install -y --no-install-recommends \
     libxt6 \
     libqrencode4 \
     libfluidsynth3 \
-    libjson-glib-1.0-0
+    libjson-glib-1.0-0 \
+    libasound2 \
+    libharfbuzz-gobject0
