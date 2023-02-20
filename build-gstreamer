@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gstreamer:ubuntu -f Dockerfile.gstreamer .
+docker build -t bittles999/hassio-gstreamer:ubuntu --progress=plain -f Dockerfile.gstreamer .  2>&1 | tee build-gstreamer.log

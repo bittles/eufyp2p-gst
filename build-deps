@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gst-build-deps:ubuntu -f Dockerfile.build-deps .
+docker build -t bittles999/hassio-gst-build-deps:ubuntu --progress=plain -f Dockerfile.build-deps .  2>&1 | tee build-deps.log
