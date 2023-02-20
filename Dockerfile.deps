@@ -1,5 +1,5 @@
 FROM bittles999/addon-ubuntu-base-jammy
 
-COPY docker/build-gstreamer/install-dependencies /
+COPY docker/build-gstreamer/install-deps /
 
-RUN ["/install-dependencies"]
+RUN ["/install-build-deps"]
