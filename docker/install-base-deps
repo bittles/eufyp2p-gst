@@ -120,4 +120,8 @@ apt-get install -y --no-install-recommends \
     libva-wayland2 \
     xvfb \
     libxrandr-dev \
-    glibc-tools
+    glibc-tools \
+    libxv1 \
+    libxt6 \
+    libqrencode4 \
+    libfluidsynth3

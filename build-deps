@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gst-deps:ubuntu -f Dockerfile.deps .
+docker build -t bittles999/hassio-gst-deps:ubuntu -f Dockerfile.build-deps .
