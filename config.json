@@ -5,7 +5,6 @@
     "arch": [
         "aarch64"
     ],
-    "image": "bittles999/aarch64-addon-eufyp2p-gst-s6",
     "slug": "eufyp2p-gst-s6",
     "version": "0.6",
     "init": false,
