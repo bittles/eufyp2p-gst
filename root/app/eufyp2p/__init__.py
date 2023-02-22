@@ -356,7 +356,7 @@ async def main(run_event):
     print(videoStream)
     print("Snapshot interval is: ")
     print(SSINTERVAL)
-    snapcmd = buildGstCmd(videoStream)
+    snapcmd = buildFfmpegCommand(videoStream)
     print("Snapshot command is:")
     print(" ".join(snapcmd))
     await asyncio.sleep(20)
