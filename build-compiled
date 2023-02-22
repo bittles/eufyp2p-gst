@@ -1,1 +1,1 @@
-docker build -t bittles999/hassio-gst-compile:ubuntu --progress=plain -f Dockerfile.compile .  2>&1 | tee compile.log
+docker build -t bittles999/gst-compile --progress=plain -f Dockerfile.compile .  2>&1 | tee compile.log
