@@ -277,7 +277,7 @@ def buildFfmpegCommand(cam_name):
         ffmpegbin,
         "-y",
 #        "-analyzeduration", "1200000",
-        "-rtsp_transport", "tcp",
+#        "-rtsp_transport", "tcp",
         "-f", "h264", 
         "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
         "-hls_init_time", "0",
