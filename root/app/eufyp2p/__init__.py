@@ -25,7 +25,7 @@ backchannel_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 audioVideoStream = 'camera1'
 # Take snapshot every interval in seconds
 ## set default to every 5 minutes
-SSINTERVAL = 600
+SSINTERVAL = 1800
 
 ffmpegbin = "/usr/bin/ffmpeg"
 
@@ -279,7 +279,7 @@ def buildFfmpegCommand(cam_name):
 #        "-analyzeduration", "1200000",
         "-rtsp_transport", "tcp",
         "-f", "h264", 
-        "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
+        "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name + "_video",
         "-hls_init_time", "0",
 #        "-hls_time", "2",
 #        "-hls_segment_type", "mpegts",
@@ -298,7 +298,7 @@ def buildGstCmd(cam_name):
 #        "location=rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name + "?mp4",
 #        "latency=0",
         "souphttpsrc",
-        "location=http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
+        "location=http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name + "_video",
         "!",
         "decodebin",
         "!",
@@ -328,7 +328,7 @@ def buildGstCmd(cam_name):
 
 async def main(run_event):
 
-    SSINTERVAL = 600 # set as default, get envs not working returned none
+    SSINTERVAL = 1800 # set as default, get envs not working returned none
     audioVideoStream = 'camera1' # set default, placeholder till sed for go2rtc made
     videoStream = 'camera1_video'
     audioStream = 'camera1_audio'
