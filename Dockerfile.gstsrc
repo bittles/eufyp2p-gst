@@ -1,6 +1,6 @@
 FROM bittles999/hassio-gst-build-deps:ubuntu
 
-ARG GST_VERSION="1.22"
+ARG GST_VERSION="1.20"
 
 COPY docker/build-gstreamer/download /download
 
