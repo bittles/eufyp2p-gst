@@ -1,5 +1,5 @@
 ARG BUILD_ARCH
-FROM bittles999/addon-ubuntu-base-jammy
+FROM bittles999/addon-ubuntu-base-jammy:latest
 
 # Install ffmpeg, tini (for signal handling), and other common tools for the echo source.
 RUN \

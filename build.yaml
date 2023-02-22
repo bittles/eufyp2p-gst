@@ -1,3 +1,3 @@
 build_from:
-  aarch64: "bittles999/hassio-gstreamer"
+  aarch64: "bittles999/addon-ubuntu-base-jammy:latest"
 
