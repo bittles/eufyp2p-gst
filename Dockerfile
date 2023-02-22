@@ -5,10 +5,10 @@ FROM bittles999/addon-ubuntu-base-jammy:latest
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-#        curl \
+        curl \
         ffmpeg \
         gzip \
-#        jq \
+        jq \
         psmisc \
         python3-pip \
         tar \
