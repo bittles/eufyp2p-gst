@@ -7,10 +7,10 @@ FROM bittles999/hassio-gstreamer:ubuntu
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-#        curl \
+        curl \
         ffmpeg \
         gzip \
-#        jq \
+        jq \
         psmisc \
         python3-pip \
         tar \
