@@ -135,7 +135,15 @@ apt-get install -y --no-install-recommends \
   libxt-dev \
   libx11-dev \
   libtool \
-  libasound2-dev
+  libasound2-dev \
+  libcdparanoia-dev \
+  bash-completion \
+  libvorbisidec-dev \
+  libcap2 \
+  libv4l-dev \
+  libnice-dev \
+  libraw1394-dev \
+  libavc1394-dev
 pip3 install meson ninja
 
 ARCH=$(dpkg --print-architecture)

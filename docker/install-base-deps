@@ -129,4 +129,12 @@ apt-get install -y --no-install-recommends \
     libfluidsynth3 \
     libjson-glib-1.0-0 \
     libasound2 \
-    libharfbuzz-gobject0
+    libharfbuzz-gobject0 \
+    libcdparanoia-dev \
+    libvorbisidec \
+    bash-completion \
+    libv4l-0 \
+    libcap2 \
+    libnice10 \
+    libraw1394 \
+    libavc1394
