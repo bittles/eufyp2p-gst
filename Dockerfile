@@ -1,21 +1,32 @@
-# use restreamio ubuntu gstreamer base
 ARG BUILD_ARCH
-#FROM restreamio/gstreamer:${BUILD_ARCH}-latest-prod
-#FROM bittles999/hassio-gstreamer:ubuntu
+FROM bittles999/addon-ubuntu-base-jammy
 
 # Install ffmpeg, tini (for signal handling), and other common tools for the echo source.
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        curl \
+#        curl \
         ffmpeg \
         gzip \
-        jq \
+#        jq \
         psmisc \
         python3-pip \
         tar \
         tini \
-        wget
+        wget \
+        gstreamer1.0-x \
+        gstreamer1.0-fdkaac \
+        gstreamer1.0-libav \
+        gstreamer1.0-plugins-bad \
+        gstreamer1.0-plugins-good \
+        gstreamer1.0-plugins-rtp \
+        gstreamer1.0-plugins-ugly \
+        gstreamer1.0-rtsp \
+        gstreamer1.0-tools \
+        gstreamer1.0-vaapi \
+        gstreamer1.0-gl \
+        gstreamer1.0-gtk3 \
+        gstreamer1.0-pulseaudio
 
 # Grab GO2RTC and ngrok binaries, not sure if ngrok needed.  It's in go2rtc addon
 # Versions
