@@ -131,10 +131,10 @@ apt-get install -y --no-install-recommends \
     libasound2 \
     libharfbuzz-gobject0 \
     libcdparanoia-dev \
-    libvorbisidec \
+    libvorbisidec1 \
     bash-completion \
     libv4l-0 \
     libcap2 \
     libnice10 \
-    libraw1394 \
-    libavc1394
+    libraw1394-11 \
+    libavc1394-0
