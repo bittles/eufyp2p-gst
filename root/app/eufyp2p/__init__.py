@@ -279,7 +279,7 @@ def buildFfmpegCommand(cam_name):
 #        "-analyzeduration", "1200000",
         "-rtsp_transport", "tcp",
         "-f", "h264", 
-        "-i", "rtsp://127.0.0.1:" + str(RTSP_PORT_NUMBER) + "/" + cam_name,
+        "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
         "-hls_init_time", "0",
 #        "-hls_time", "2",
 #        "-hls_segment_type", "mpegts",
