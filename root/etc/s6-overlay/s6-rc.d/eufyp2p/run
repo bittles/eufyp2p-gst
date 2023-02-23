@@ -4,6 +4,7 @@ set -e
 bashio::log.info "Starting eufyp2p"
 
 if [ ! -d /config/www/eufyp2p ]; then
+    bashio::log.info "Making snapshot dir in /config/www/eufyp2p"
     mkdir -p /config/www/eufyp2p
 fi
 
