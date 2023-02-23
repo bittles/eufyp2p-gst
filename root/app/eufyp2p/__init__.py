@@ -278,13 +278,13 @@ def buildFfmpegCommand(cam_name):
         "-y",
 #        "-analyzeduration", "1200000",
 #        "-rtsp_transport", "tcp",
-        "-f", "h264", 
+#        "-f", "h264", 
         "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
-        "-hls_init_time", "0",
+#        "-hls_init_time", "0",
 #        "-hls_time", "2",
 #        "-hls_segment_type", "mpegts",
 #        "-fflags", "genpts+nobuffer+flush_packets",
-        "-frames:v", "1",
+#        "-frames:v", "1",
         "/config/www/eufyp2p/" + cam_name + ".jpg"
         ]
     return ffmpegcommand
