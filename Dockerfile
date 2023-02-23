@@ -61,7 +61,9 @@ COPY root/ /
 RUN pip3 install aiohttp
 # Set permissions
 RUN chmod a+x /etc/s6-overlay/s6-rc.d/go2rtc/* /etc/s6-overlay/s6-rc.d/eufyp2p/* /usr/local/bin/*
-WORKDIR /app
+ENTRYPOINT ["/sbin/tini", "--"]
+VOLUME /config
+WORKDIR /config
 
 ## add labels
 
