@@ -15,8 +15,7 @@ host_network: true
 homeassistant_api: true
 ingress_port: 1997
 panel_icon: mdi:camera-wireless
-map:
-  - "config:rw"
+map: [ "config:rw" ]
 ports:
   - 8541/tcp: 8541
   - 1997/tcp: 1997

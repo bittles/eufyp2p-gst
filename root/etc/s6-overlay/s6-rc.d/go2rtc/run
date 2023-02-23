@@ -10,4 +10,5 @@ else
     bashio::log.info "Using existing go2rtc.yaml in /config/eufyp2p/"
 fi
 
-/usr/local/bin/go2rtc -config /config/eufyp2p/go2rtc.yaml
+#launching with tini to keep go2rtc the same
+#/usr/local/bin/go2rtc -config /config/eufyp2p/go2rtc.yaml
