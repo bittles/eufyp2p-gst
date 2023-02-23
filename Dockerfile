@@ -34,7 +34,7 @@ ARG BUILD_ARCH
 ARG GO2RTC_VERSION="v1.2.0"
 ARG NGROK_VERSION="v3-3.1.1"
 # Set non-matching defaults to make sure they set right
-ARG GO2RTC_ARCH="amd64"
+ARG GO2RTC_ARCH="aarch64"
 ARG NGROK_ARCH_URL_SUBDIR="3uoGJrwPaSE"
 
 RUN if [ "${BUILD_ARCH}" = "aarch64" ]; then GO2RTC_ARCH="arm64"; fi \
