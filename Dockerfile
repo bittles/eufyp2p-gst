@@ -57,10 +57,16 @@ RUN if [ "${BUILD_ARCH}" = "amd64" ]; then apk add --no-cache libva-intel-driver
 
 COPY root/ /
 
+# Clear cache
+RUN \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install aiohttp
 RUN pip3 install aiohttp
 # Set permissions
 RUN chmod a+x /etc/s6-overlay/s6-rc.d/go2rtc/* /etc/s6-overlay/s6-rc.d/eufyp2p/* /usr/local/bin/*
+# use go2rtc entrypoint, workdir, and volume
 ENTRYPOINT ["/sbin/tini", "--"]
 VOLUME /config
 WORKDIR /config
