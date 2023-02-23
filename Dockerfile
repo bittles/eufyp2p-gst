@@ -70,6 +70,7 @@ RUN chmod a+x /etc/s6-overlay/s6-rc.d/go2rtc/* /etc/s6-overlay/s6-rc.d/eufyp2p/*
 ENTRYPOINT ["/usr/bin/tini", "--"]
 VOLUME /config
 WORKDIR /config
+CMD ["/usr/local/bin/go2rtc", "-config", "/config/eufyp2p/go2rtc.yaml"]
 
 ## add labels
 
