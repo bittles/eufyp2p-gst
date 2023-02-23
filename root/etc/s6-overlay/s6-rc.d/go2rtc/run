@@ -11,4 +11,4 @@ else
 fi
 
 #launching with tini to keep go2rtc the same
-#/usr/local/bin/go2rtc -config /config/eufyp2p/go2rtc.yaml
+/usr/bin/tini -v -- "/usr/local/bin/go2rtc -config /config/eufyp2p/go2rtc.yaml"
