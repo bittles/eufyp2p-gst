@@ -1,3 +1,4 @@
+# config yaml
 name: "eufyp2p-gst-s6"
 description: "Eufy P2P camera streaming application with gst-launch-1.0"
 url: https://github.com/bittles/eufyp2p-gst
@@ -17,8 +18,8 @@ ingress_port: 1997
 panel_icon: mdi:camera-wireless
 map: [ "config:rw" ]
 ports:
-  - 8541/tcp: 8541
-  - 1997/tcp: 1997
+  8541/tcp: 8541
+  1997/tcp: 1997
 ports_description:
-  - 8541/tcp: Port for serving RTSP at x.x.x.x:<port>/camera1
-  - 1997/tcp: Port for go2rtc web interface
+  8541/tcp: Port for serving RTSP at x.x.x.x:<port>/camera1
+  1997/tcp: Port for go2rtc web interface
