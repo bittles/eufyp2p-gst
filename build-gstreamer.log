@@ -1,29 +1,30 @@
 #1 [internal] load build definition from Dockerfile.gstreamer
-#1 transferring dockerfile: 164B 0.0s done
+#1 transferring dockerfile: 136B 0.0s done
 #1 DONE 0.0s
 
 #2 [internal] load .dockerignore
-#2 transferring context: 2B 0.0s done
+#2 transferring context: 2B done
 #2 DONE 0.1s
 
-#3 [internal] load metadata for docker.io/bittles999/hassio-gst-base:ubuntu
+#3 [internal] load metadata for docker.io/bittles999/gst-base:latest
 #3 DONE 0.0s
 
-#4 [internal] load metadata for docker.io/bittles999/hassio-gst-compile:ubuntu
+#4 [internal] load metadata for docker.io/bittles999/gst-compile:latest
 #4 DONE 0.0s
 
-#5 [stage-1 1/2] FROM docker.io/bittles999/hassio-gst-base:ubuntu
-#5 DONE 0.3s
+#5 [stage-1 1/2] FROM docker.io/bittles999/gst-base
+#5 DONE 0.2s
 
-#6 [stage-0 1/1] FROM docker.io/bittles999/hassio-gst-compile:ubuntu
-#6 DONE 0.3s
+#6 [stage-0 1/1] FROM docker.io/bittles999/gst-compile
+#6 DONE 0.2s
 
 #7 [stage-1 2/2] COPY --from=0 /compiled-binaries /
-#7 DONE 0.7s
+#7 DONE 0.5s
 
 #8 exporting to image
 #8 exporting layers
 #8 exporting layers 0.7s done
-#8 writing image sha256:e5c64ae579808314b7bdb1c4b6f99dc97015a242344962672725c17e8fcdb96b done
-#8 naming to docker.io/bittles999/hassio-gstreamer:ubuntu done
+#8 writing image sha256:32ef12e56fc377f0a5061bb01ffc8adb4e8999bb3aad5480927bc28a044a6dcc
+#8 writing image sha256:32ef12e56fc377f0a5061bb01ffc8adb4e8999bb3aad5480927bc28a044a6dcc done
+#8 naming to docker.io/bittles999/gstreamer-ubuntu 0.0s done
 #8 DONE 0.7s
