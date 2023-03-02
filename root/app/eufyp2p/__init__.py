@@ -197,15 +197,15 @@ class Connector:
         self,
         run_event,
     ):
-        video_sock.bind(("127.0.0.1", 63336))
+        video_sock.bind(("192.168.21.40", 63336))
         video_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         video_sock.settimeout(1) # timeout for listening
         video_sock.listen()
-        audio_sock.bind(("127.0.0.1", 63337))
+        audio_sock.bind(("192.168.21.40", 63337))
         audio_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         audio_sock.settimeout(1) # timeout for listening
         audio_sock.listen()
-        backchannel_sock.bind(("127.0.0.1", 63338))
+        backchannel_sock.bind(("192.168.21.40", 63338))
         backchannel_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         backchannel_sock.settimeout(1) # timeout for listening
         backchannel_sock.listen()
@@ -277,14 +277,18 @@ def buildFfmpegCommand(cam_name):
         ffmpegbin,
         "-y",
 #        "-analyzeduration", "1200000",
-#        "-rtsp_transport", "tcp",
+        "-itsoffset", "1.5",
+        "-rtsp_transport", "tcp",
 #        "-f", "h264", 
-        "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
+#        "-i", "http://192.168.21.40:1997/api/frame.mp4?src=" + cam_name,
+        "-i", "rtsp://192.168.21.40:8541/camera1_video",
+        "-an",
 #        "-hls_init_time", "0",
 #        "-hls_time", "2",
 #        "-hls_segment_type", "mpegts",
 #        "-fflags", "genpts+nobuffer+flush_packets",
-#        "-frames:v", "1",
+        "-frames:v", "1",
+#       "-ss", "00:00:01.5",
         "/config/www/eufyp2p/" + cam_name + ".jpg"
         ]
     return ffmpegcommand
